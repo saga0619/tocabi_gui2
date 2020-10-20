@@ -1,2 +1,2 @@
 
-sudo apt-get install qml-module-qtquick-controls2
+sudo apt-get install qml-module-qtquick*
