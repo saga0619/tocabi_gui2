@@ -1042,6 +1042,7 @@ Window {
         x: 679
         y: 46
         text: qsTr("Torque/Position")
+        objectName: "tp_button"
         onClicked: {
             ros.sub_change();
         }

@@ -64,6 +64,17 @@ TocabiPlugin::TocabiPlugin(QObject *parent, ros::NodeHandle &nh) : QObject(paren
 void TocabiPlugin::sub_change()
 {
     torque = !torque;
+
+    if(torque)
+    {
+        m_Q->findChild<QObject *>("tp_button")->setProperty("text","Torque");
+    }
+    else
+    {
+        
+        m_Q->findChild<QObject *>("tp_button")->setProperty("text","Position");
+    }
+    
 }
 
 void TocabiPlugin::button_ros(int id, QString msg)
@@ -260,11 +271,11 @@ void TocabiPlugin::joint_cb(sensor_msgs::JointStateConstPtr msg)
         {
             j_data = msg->position[i];
             limit = 3.141592;
-            data_prg = abs(j_data / limit) + 0.5;
+            data_prg = j_data / (limit*2) + 0.5;
             data_txt = j_data /3.141592 * 180.0;
         }
 
-        std::sprintf(buf, "%8.3f", j_data);
+        std::sprintf(buf, "%8.3f", data_txt);
         std::sprintf(buf2, "t%d", i + 1);
         m_Q->findChild<QObject *>(buf2)->setProperty("text", buf);
 
