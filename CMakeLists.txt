@@ -35,7 +35,7 @@ qt5_add_resources(RESOURCE_FILES resource/qml.qrc)
 
 add_executable(tocabi_qui
   main.cpp
-  ros_connect.cpp
+  TocabiPlugin.cpp
   ${RESOURCE_FILES}
 )
 

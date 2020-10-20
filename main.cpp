@@ -2,7 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlEngine>
 #include <QQmlContext>
-#include "ros_connect.h"
+#include "TocabiPlugin.h"
 
 
 
@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 
 
 
-    ros_connect ros(root,nh);
+    TocabiPlugin ros(root,nh);
 
     engine.rootContext()->setContextProperty("ros", &ros);
 

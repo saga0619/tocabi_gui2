@@ -1,6 +1,8 @@
-#ifndef ROS_CONNECT_H
-#define ROS_CONNECT_H
+#ifndef TOCABI_PLUGIN_H
+#define TOCABI_PLUGIN_H
 
+
+#include <sstream>
 #include <QObject>
 #include <QDebug>
 #include <QPoint>
@@ -13,11 +15,11 @@
 #include <geometry_msgs/PointStamped.h>
 #include <geometry_msgs/PolygonStamped.h>
 
-class ros_connect : public QObject
+class TocabiPlugin : public QObject
 {
     Q_OBJECT
 public:
-    explicit ros_connect(QObject *parent, ros::NodeHandle &nh);
+    explicit TocabiPlugin(QObject *parent, ros::NodeHandle &nh);
 
     Q_INVOKABLE void button_ros(int id, QString msg);
     Q_INVOKABLE void switch_ros(int id, char* msg);

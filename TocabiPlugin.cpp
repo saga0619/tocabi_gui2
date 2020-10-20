@@ -1,5 +1,4 @@
-#include "ros_connect.h"
-#include <sstream>
+#include "TocabiPlugin.h"
 
 float NM2CNT[33] = {
     3.0,
@@ -40,17 +39,17 @@ float NM2CNT[33] = {
 #define min(x, y) (((x) < (y)) ? (x) : (y))
 #define max(x, y) (((x) > (y)) ? (x) : (y))
 
-ros_connect::ros_connect(QObject *parent, ros::NodeHandle &nh) : QObject(parent)
+TocabiPlugin::TocabiPlugin(QObject *parent, ros::NodeHandle &nh) : QObject(parent)
 {
     std::cout << "loaded" << std::endl;
 
     button_pub = nh.advertise<std_msgs::String>("/dyros_red/command", 100);
-    joint_sub = nh.subscribe("/tocabi/jointstates", 1, &ros_connect::joint_cb, this);
-    //sensor_sub = nh.subscribe("/mujoco_ros_interface/sensor_states", 1, &ros_connect::sensor_cb, this);
-    time_sub = nh.subscribe("/tocabi/time", 1, &ros_connect::time_cb, this);
+    joint_sub = nh.subscribe("/tocabi/jointstates", 1, &TocabiPlugin::joint_cb, this);
+    //sensor_sub = nh.subscribe("/mujoco_ros_interface/sensor_states", 1, &TocabiPlugin::sensor_cb, this);
+    time_sub = nh.subscribe("/tocabi/time", 1, &TocabiPlugin::time_cb, this);
     m_Q = parent;
 
-    pos_sub = nh.subscribe("/tocabi/point", 1, &ros_connect::pos_cb, this);
+    pos_sub = nh.subscribe("/tocabi/point", 1, &TocabiPlugin::pos_cb, this);
 
     tt = 0;
 
@@ -62,12 +61,12 @@ ros_connect::ros_connect(QObject *parent, ros::NodeHandle &nh) : QObject(parent)
     std::cout << "loaded" << std::endl;
 }
 
-void ros_connect::sub_change()
+void TocabiPlugin::sub_change()
 {
     torque = !torque;
 }
 
-void ros_connect::button_ros(int id, QString msg)
+void TocabiPlugin::button_ros(int id, QString msg)
 {
 
     std_msgs::String msg_;
@@ -77,17 +76,17 @@ void ros_connect::button_ros(int id, QString msg)
     button_pub.publish(msg_);
 }
 
-void ros_connect::switch_ros(int id, char *msg)
+void TocabiPlugin::switch_ros(int id, char *msg)
 {
 }
 
-double ros_connect::t_x()
+double TocabiPlugin::t_x()
 {
 
     return tt;
 }
 
-void ros_connect::pos_cb(geometry_msgs::PolygonStampedConstPtr msg)
+void TocabiPlugin::pos_cb(geometry_msgs::PolygonStampedConstPtr msg)
 {
 
     int scale = 500;
@@ -200,18 +199,18 @@ void ros_connect::pos_cb(geometry_msgs::PolygonStampedConstPtr msg)
     }
 }
 
-void ros_connect::update()
+void TocabiPlugin::update()
 {
     ros::spinOnce();
 }
-void ros_connect::time_cb(std_msgs::Float32ConstPtr msg)
+void TocabiPlugin::time_cb(std_msgs::Float32ConstPtr msg)
 {
     char buf[128];
     std::sprintf(buf, "%8.4f", msg->data);
     m_Q->findChild<QObject *>("time_text")->setProperty("text", buf);
 }
 /*
-void ros_connect::sensor_cb(mujoco_ros_msgs::SensorStateConstPtr msg)
+void TocabiPlugin::sensor_cb(mujoco_ros_msgs::SensorStateConstPtr msg)
 {
     char buf[128];
     char buf2[128];
@@ -241,7 +240,7 @@ void ros_connect::sensor_cb(mujoco_ros_msgs::SensorStateConstPtr msg)
     }
 }*/
 
-void ros_connect::joint_cb(sensor_msgs::JointStateConstPtr msg)
+void TocabiPlugin::joint_cb(sensor_msgs::JointStateConstPtr msg)
 {
 
     char buf[128];
@@ -281,7 +280,7 @@ void ros_connect::joint_cb(sensor_msgs::JointStateConstPtr msg)
     }
 }
 
-float ros_connect::pp(float val)
+float TocabiPlugin::pp(float val)
 {
     if (val < 0)
     {
