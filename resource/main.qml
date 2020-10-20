@@ -1,6 +1,6 @@
-import QtQuick 2.12
-import QtQuick.Window 2.10
-import QtQuick.Controls 2.5
+import QtQuick 2.9
+import QtQuick.Window 2.2
+import QtQuick.Controls 2.2
 import QtQuick.Dialogs 1.2
 import QtQml 2.2
 
@@ -30,7 +30,6 @@ Window {
                 var ctx=getContext("2d");
                 ctx.fillStyle=Qt.rgba(1,0,0,1);
                 ctx.fillRect(ros.tt,0,50,50);
-                p
 
             }
 
@@ -40,7 +39,6 @@ Window {
                 y: 118
                 width: 100
                 height: 100
-                source: "qrc:/qtquickplugin/images/template_image.png"
             }
 
         }
@@ -1042,9 +1040,9 @@ Window {
         id: button
         x: 679
         y: 46
-        text: qsTr("Gravity")
+        text: qsTr("Torque/Position")
         onClicked: {
-            ros.button_ros(0,"gravity");
+            ros.sub_change();
         }
     }
 

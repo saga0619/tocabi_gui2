@@ -12,8 +12,6 @@
 #include <geometry_msgs/Point32.h>
 #include <geometry_msgs/PointStamped.h>
 #include <geometry_msgs/PolygonStamped.h>
-#include "JointState.h"
-#include "SensorState.h"
 
 class ros_connect : public QObject
 {
@@ -23,16 +21,17 @@ public:
 
     Q_INVOKABLE void button_ros(int id, QString msg);
     Q_INVOKABLE void switch_ros(int id, char* msg);
+    Q_INVOKABLE void sub_change();
     Q_INVOKABLE void update();
     Q_INVOKABLE double t_x();
     Q_INVOKABLE int tt;
     Q_INVOKABLE QString a;
 
 
-
+    bool torque = true;
 
     void joint_cb(sensor_msgs::JointStateConstPtr msg);
-    void sensor_cb(mujoco_ros_msgs::SensorStateConstPtr msg);
+    //void sensor_cb(mujoco_ros_msgs::SensorStateConstPtr msg);
     void time_cb(std_msgs::Float32ConstPtr msg);
     void pos_cb(geometry_msgs::PolygonStampedConstPtr msg);
     sensor_msgs::JointState state;
