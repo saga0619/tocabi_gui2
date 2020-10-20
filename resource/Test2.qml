@@ -3,12 +3,7 @@ import QtQuick.Controls 2.2
 import QtQuick.Dialogs 1.2
 import QtMultimedia 5.0
 Page{
-
-    Label {
-        text: qsTr("You are on Page 2.")
-        anchors.centerIn: parent
-    }
-
+    property var abool: false
 
     Rectangle {
         id: rectangle4
@@ -17,6 +12,7 @@ Page{
         width: 256
         height: 256
         color: "#ffffff"
+        visible: false
 
         MediaPlayer {
             id: mediaplayer
@@ -34,6 +30,23 @@ Page{
         }
     }
 
+    Button {
+        id: button
+        x: 78
+        y: 339
+        text: qsTr("wanna fun?")
+        onClicked:{
+            abool = !abool;
+            rectangle4.visible = abool;
+        } 
+    }
+
 
 }
 
+
+/*##^##
+Designer {
+    D{i:0;autoSize:true;height:480;width:640}
+}
+##^##*/
