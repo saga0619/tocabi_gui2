@@ -34,7 +34,7 @@ include_directories(
 qt5_add_resources(RESOURCE_FILES resource/qml.qrc)
 
 add_executable(tocabi_qui
-  src/main.cpp
+  main.cpp
   ros_connect.cpp
   ${RESOURCE_FILES}
 )
