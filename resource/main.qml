@@ -3,6 +3,7 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 import QtQuick.Dialogs 1.2
 import QtQml 2.2
+import QtMultimedia 5.0
 
 Window {
     visible: true
@@ -1150,6 +1151,19 @@ Window {
             horizontalAlignment: Text.AlignRight
             objectName: "t25"
             font.pixelSize: 12
+        }
+    }
+
+    Rectangle {
+        id: rectangle5
+        x: 650
+        y: 170
+        width: 200
+        height: 200
+        color: "#ffffff"
+
+        Image{
+            source: "Dyros_Logo3.png"
         }
     }
 

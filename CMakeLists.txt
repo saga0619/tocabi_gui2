@@ -31,7 +31,7 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-qt5_add_resources(RESOURCE_FILES resource/qml.qrc)
+qt5_add_resources(RESOURCE_FILES resource/qml.qrc img/image.qrc)
 
 add_executable(tocabi_qui
   main.cpp

@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlEngine>
 #include <QQmlContext>
+#include <QIcon>
 #include "TocabiPlugin.h"
 
 
@@ -13,6 +14,8 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
+
+    app.setWindowIcon(QIcon(QPixmap(":/Dyros_Logo3.png")));
 
     QQmlApplicationEngine engine;
     
