@@ -2,6 +2,7 @@
     <qresource prefix="/">
         <file>su_logo.png</file>
         <file>Dyros_Logo3.png</file>
+        <file>vid.webm</file>
         <file>vid.mp4</file>
     </qresource>
 </RCC>
