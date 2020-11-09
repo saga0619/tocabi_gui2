@@ -3,13 +3,13 @@
 #include <QQmlEngine>
 #include <QQmlContext>
 #include <QIcon>
-#include "TocabiPlugin.h"
+#include "ros_connect.h"
 
 
 
 int main(int argc, char *argv[])
 {
-    ros::init(argc,argv,"mj_ui");
+    ros::init(argc,argv,"tocabi_qui");
     ros::NodeHandle nh;
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
@@ -25,8 +25,7 @@ int main(int argc, char *argv[])
 
 
 
-    TocabiPlugin ros(root,nh);
-
+    ros_connect ros(root,nh);
     engine.rootContext()->setContextProperty("ros", &ros);
 
 
