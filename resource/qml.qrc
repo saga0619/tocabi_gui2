@@ -1,10 +1,10 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>Initializer.ui.qml</file>
-        <file>JoystickCheck.ui.qml</file>
-        <file>Status.ui.qml</file>
-        <file>VirtualJoy.ui.qml</file>
+        <file>Initializer.qml</file>
+        <file>JoystickCheck.qml</file>
+        <file>Status.qml</file>
+        <file>VirtualJoy.qml</file>
         <file>qtquickcontrols2.conf</file>
     </qresource>
 </RCC>

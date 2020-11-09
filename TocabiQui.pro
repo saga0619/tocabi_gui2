@@ -47,8 +47,6 @@ INCLUDEPATH += /opt/ros/melodic/include
 DEPENDPATH += /opt/ros/melodic/include
 
 DISTFILES += \
-    resource/Test1.qml \
-    resource/Test2.qml
 
 
 
