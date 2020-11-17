@@ -8,6 +8,7 @@
 #include <QObject>
 #include <QPoint>
 #include <QDebug>
+#include <QVariant>
 #include <sstream>
 #include <sensor_msgs/Joy.h>
 #include <std_msgs/String.h>
@@ -54,6 +55,15 @@ public:
         std::sprintf(buf, "%6.2f", 15.48721241);
         std::sprintf(buf2, "t%d", 1);
         m_Q->findChild<QObject *>(buf2)->setProperty("text", buf);
+
+
+        //How to Get Property from Qobject
+        QVariant Qvar = m_Q->findChild<QObject *>(buf2)->property("text");
+        QString Qstr = Qvar.toString();
+        std::string stdstr_ = Qstr.toStdString();
+
+
+        std::cout<< "get text? : "<<stdstr_<<std::endl;
     };
 
     Q_INVOKABLE void click_ros(QString msg)
