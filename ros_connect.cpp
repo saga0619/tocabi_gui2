@@ -58,7 +58,16 @@ void ros_connect::init_ros()
 
 
         m_Q->findChild<QObject *>("ros_button")->setProperty("text", "ROS CONNECTED");
+
+
+        //Enable other Tabs ... 
+        //m_Q->findChild<QOb ...>->setpro ( "enabled", true)
     }
+
+void ros_connect::shutdown()
+{
+    system("shutdown -P now");
+}
 
 void ros_connect::click_ros(QString msg)
     {
