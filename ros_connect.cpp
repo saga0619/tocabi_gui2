@@ -58,6 +58,18 @@ void ros_connect::init_ros()
 
 
         m_Q->findChild<QObject *>("ros_button")->setProperty("text", "ROS CONNECTED");
+
+        //Enable tabs when called
+        char buf[128];
+        for(int i = 2; i < 6; i++)
+        {
+            std::sprintf(buf, "tab%d", i);
+            m_Q->findChild<QObject *>(buf)->setProperty("enabled", true); 
+        }
+        m_Q->findChild<QObject *>("swipeView")->setProperty("enabled", true);
+        
+
+
     }
 
 void ros_connect::click_ros(QString msg)
@@ -418,7 +430,7 @@ void ros_connect::joystick_cb(const sensor_msgs::Joy::Ptr &msg)
     Rightmsg->axes[3] = temp[2];
 
     if(JoyFlag ==0){
-    if(abs(Rightmsg->axes[4]!= 0))
+    if(abs(Rightmsg->axes[4]!= 0)) 
         LTFlag = 1;
     if(abs(Rightmsg->axes[5]!= 0))
         RTFlag = 1;
@@ -519,15 +531,15 @@ void ros_connect::joystick_cb(const sensor_msgs::Joy::Ptr &msg)
     }
 
     if (Rightmsg->buttons[6])
-        Torqueon();
+        torqueon();
     if (Rightmsg->buttons[7])
-        Torqueoff();   
+        torqueoff();   
     if (Rightmsg->buttons[0])
         handletaskmsg();
     if (Rightmsg->buttons[1])
         VirtualInitHandle();
     if(Rightmsg->buttons[8])
-        EmergencyOff();
+        emergencyOff();
     if (Rightmsg->axes[7] != 0) {
         if (Rightmsg->axes[7] > 0)       ChangeConMode(-1);
         else if (Rightmsg->axes[7] < 0)   ChangeConMode(1);
@@ -570,19 +582,19 @@ void ros_connect::VirtualInitHandle()
         com_pub.publish(com_msg);
     }
 
-void ros_connect::Torqueon()
+void ros_connect::torqueon()
     {
         com_msg.data = std::string("torqueon");
         com_pub.publish(com_msg);
     }
 
-void ros_connect::Torqueoff()
+void ros_connect::torqueoff()
     {
         com_msg.data = std::string("torqueoff");
         com_pub.publish(com_msg);
     }
 
-void ros_connect::EmergencyOff()
+void ros_connect::emergencyOff()
     {
         com_msg.data = std::string("emergencyoff");
         com_pub.publish(com_msg);

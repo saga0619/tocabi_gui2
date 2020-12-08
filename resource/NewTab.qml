@@ -265,10 +265,69 @@ Page {
             }
         }
     }
+
+    Frame {
+        id: frame3
+        x: 560
+        y: 337
+        width: 242
+        height: 194
+
+        Column {
+            x: 18
+            y: 0
+            anchors.fill: parent
+            spacing: 10
+
+            Button {
+                objectName: "torqueon_button"
+                text: qsTr("TORQUE ON")
+                font.pointSize: 18
+                width: parent.width
+                height: 50
+                onClicked: ros.torqueoff()
+            }
+
+            Button {
+                objectName: "torqueoff_button"
+                text: qsTr("TORQUE OFF")
+                font.pointSize: 18
+                width: parent.width
+                height: 50
+                onClicked: ros.torqueoff()
+
+            }
+
+            Button {
+                id: button9
+                objectName: "emergencyoff_button"
+                contentItem: Text {
+                    color: "white"
+                    text: qsTr("EMERGENCY OFF")
+                    font.pointSize: 18
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+
+                }
+
+                background: Rectangle{
+                    color: "red"
+                }
+
+                font.pointSize: 18
+                width: parent.width
+                height: 50
+                onClicked: ros.emergencyOff()
+            }
+
+
+
+        }
+    }
 }
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.6600000262260437}
+    D{i:0;formeditorZoom:0.75}
 }
 ##^##*/

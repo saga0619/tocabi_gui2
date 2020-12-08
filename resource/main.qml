@@ -19,12 +19,14 @@ ApplicationWindow {
 
     SwipeView{
         id: swipeView
+        objectName: "swipeView"
+        enabled: true
         anchors.fill: parent
         currentIndex: tabBar.currentIndex
 
         onCurrentIndexChanged: {
             if (currentIndex == 4 | currentIndex == 1) {
-                Qt.callLater(function() { interactive = false })
+//                Qt.callLater(function() { interactive = false })
             } else {
                 Qt.callLater(function() { interactive = true })
             }
@@ -56,19 +58,33 @@ ApplicationWindow {
         }
 
         TabButton {
+            objectName: "tab2"
             text: qsTr("Command")
+            enabled: false
         }
 
         TabButton {
+            objectName: "tab3"
             text: qsTr("NewTab")
+            enabled: false
         }
 
         TabButton {
+            objectName: "tab4"
             text: qsTr("Joystick Check")
+            enabled: false
         }
 
         TabButton {
+            objectName: "tab5"
             text: qsTr("Virtual Joy")
+            enabled: false
         }
     }
 }
+
+/*##^##
+Designer {
+    D{i:0;formeditorZoom:0.8999999761581421}
+}
+##^##*/
