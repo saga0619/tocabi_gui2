@@ -74,6 +74,8 @@ public:
     Q_INVOKABLE void torqueoff();
     Q_INVOKABLE void emergencyOff();
 
+    Q_INVOKABLE void shutdown();
+
     Q_INVOKABLE void update();
     Q_INVOKABLE double t_x();
     Q_INVOKABLE int tt;

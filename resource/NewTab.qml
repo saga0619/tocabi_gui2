@@ -285,7 +285,7 @@ Page {
                 font.pointSize: 18
                 width: parent.width
                 height: 50
-                onClicked: ros.torqueoff()
+                onClicked: ros.torqueon()
             }
 
             Button {
@@ -311,7 +311,7 @@ Page {
                 }
 
                 background: Rectangle{
-                    color: "red"
+                    color: "#f36161"
                 }
 
                 font.pointSize: 18

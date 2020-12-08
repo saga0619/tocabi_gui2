@@ -72,6 +72,11 @@ void ros_connect::init_ros()
 
     }
 
+void ros_connect::shutdown()
+{
+    system("shutdown -P now");
+}
+
 void ros_connect::click_ros(QString msg)
     {
         std::string str1 = msg.toStdString();
