@@ -12,6 +12,7 @@
 #include <sstream>
 #include <sensor_msgs/Joy.h>
 #include <std_msgs/String.h>
+#include <std_msgs/Bool.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/Float32MultiArray.h>
 #include <std_msgs/Int32MultiArray.h>
@@ -51,6 +52,7 @@ public:
     int argc;
     char** argv;
     Q_INVOKABLE void init_ros();
+
     Q_INVOKABLE void click_ros(QString msg);
     Q_INVOKABLE void vir_TaskHandle();
     Q_INVOKABLE void rmmodxpad();
@@ -61,6 +63,8 @@ public:
     Q_INVOKABLE void tasksendcb();
     Q_INVOKABLE void walkinginitbtncb();
     Q_INVOKABLE void walkingstartbtncb();
+
+
     // Q_INVOKABLE void que_deletebtn();
     Q_INVOKABLE void que_resetbtn();
     Q_INVOKABLE void que_sendbtn();
@@ -96,6 +100,8 @@ public:
 
     void handletaskmsg();
 
+//    void pushed_msg(const std_msgs::Bool &msg);
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -124,6 +130,7 @@ public:
 
     ros::Publisher android_pub;
     ros::Subscriber android_sub;
+    ros::Subscriber ardu_sub;
     int JoyFlag = 0;
     int LTFlag = 0;
     int RTFlag = 0;

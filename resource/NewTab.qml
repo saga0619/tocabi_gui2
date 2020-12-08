@@ -29,7 +29,7 @@ Page {
             Button {
                 width: parent.width
                 height: 50
-                font.pointSize: 20
+                font.pointSize: 18
                 text: qsTr("Init Yaw")
                 onClicked: {
                     ros.button_ros(0,"inityaw")
@@ -40,7 +40,7 @@ Page {
                 text: qsTr("qdot Lpf")
                 width: parent.width
                 height: 50
-                font.pointSize: 20
+                font.pointSize: 18
                 onClicked: {
                     ros.button_ros(0,"enablelpf")                        }
             }
@@ -48,7 +48,7 @@ Page {
                 text: qsTr("State Estimation")
                 width: parent.width
                 height: 50
-                font.pointSize: 20
+                font.pointSize: 18
                 onClicked: {
                     ros.button_ros(0,"stateestimation")
                 }
@@ -57,7 +57,7 @@ Page {
                 text: qsTr("SE by FT")
                 width: parent.width
                 height: 50
-                font.pointSize: 20
+                font.pointSize: 18
                 onClicked: {
                     ros.button_ros(0,"sebyft")
                 }
@@ -66,7 +66,7 @@ Page {
                 text: qsTr("virtual joint(sim)")
                 width: parent.width
                 height: 50
-                font.pointSize: 20
+                font.pointSize: 18
                 onClicked: {
                     ros.button_ros(0,"simvirtualjoint")
                 }
@@ -75,7 +75,7 @@ Page {
                 text: qsTr("Ignore IMU")
                 width: parent.width
                 height: 50
-                font.pointSize: 20
+                font.pointSize: 18
                 onClicked: {
                     ros.button_ros(0,"imuignore")
                 }
@@ -112,7 +112,7 @@ Page {
                 height: 50
                 text: qsTr("DISABLE LOWER")
                 highlighted: false
-                font.pointSize: 20
+                font.pointSize: 18
                 checked: false
 
                 onClicked: {
@@ -125,7 +125,7 @@ Page {
                 width: parent.width
                 height: 50
                 text: qsTr("IMU EF Reset")
-                font.pointSize: 20
+                font.pointSize: 18
                 highlighted: false
                 checked: false
                 onClicked: {
@@ -138,7 +138,7 @@ Page {
                 width: parent.width
                 height: 50
                 text: qsTr("FT Calibration")
-                font.pointSize: 20
+                font.pointSize: 18
                 highlighted: false
                 checked: false
                 onClicked: {
@@ -151,7 +151,7 @@ Page {
                 width: parent.width
                 height: 50
                 text: qsTr("Disable Safety")
-                font.pointSize: 20
+                font.pointSize: 18
                 highlighted: false
                 checked: false
                 onClicked: {
@@ -164,7 +164,7 @@ Page {
                 width: parent.width
                 height: 50
                 text: qsTr("Safety Reset")
-                font.pointSize: 20
+                font.pointSize: 18
                 highlighted: false
                 checked: false
                 onClicked: {
@@ -177,7 +177,7 @@ Page {
                 width: parent.width
                 height: 50
                 text: qsTr("Initialize Lower")
-                font.pointSize: 20
+                font.pointSize: 18
                 highlighted: false
                 checked: false
                 onClicked: {
@@ -192,7 +192,7 @@ Page {
                 text: qsTr("Initialize All")
                 highlighted: false
                 checked: false
-                font.pointSize: 20
+                font.pointSize: 18
 
                 onClicked: {
                     ros.button_ros(0,"ecatinit")
@@ -228,7 +228,7 @@ Page {
                 text: qsTr("torqueredis")
                 width: parent.width
                 height: 50
-                font.pointSize: 20
+                font.pointSize: 18
                 onClicked: {
                     ros.button_ros(0,"torqueredis")
                 }
@@ -238,7 +238,7 @@ Page {
                 text: qsTr("Position(Grav))")
                 width: parent.width
                 height: 50
-                font.pointSize: 20
+                font.pointSize: 18
                 onClicked: {
                     ros.button_ros(0,"positiongravcontrol")
                 }
@@ -248,7 +248,7 @@ Page {
                 text: qsTr("PositionControl")
                 width: parent.width
                 height: 50
-                font.pointSize: 20
+                font.pointSize: 18
                 onClicked: {
                     ros.button_ros(0,"positioncontrol")
                 }
@@ -258,61 +258,10 @@ Page {
                 text: qsTr("GravityControl")
                 width: parent.width
                 height: 50
-                font.pointSize: 20
+                font.pointSize: 18
                 onClicked: {
                     ros.button_ros(0,"gravity")
                 }
-            }
-        }
-    }
-
-    Frame {
-        id: frame3
-        x: 817
-        y: 10
-        width: 195
-        height: 239
-
-        Column {
-            id: column3
-            x: 33
-            y: 12
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.horizontalCenter:parent.horizontalCenter
-            width: parent.width
-            spacing: 18
-
-
-            Text {
-                text: qsTr("Data")
-                font.pixelSize: 20
-            }
-
-            Button {
-                text: qsTr("Show Data")
-                width: parent.width
-                height: 50
-                font.pointSize: 20
-                onClicked: {
-                    ros.button_ros(0,"showdata")
-                }
-            }
-
-            Button {
-                text: qsTr("Print Data")
-                width: parent.width
-                height: 50
-                font.pointSize: 20
-                onClicked: {
-                    ros.button_ros(0,"printdata")
-                }
-            }
-
-            Button {
-                text: qsTr("help")
-                width: parent.width
-                height: 50
-                font.pointSize: 20
             }
         }
     }
