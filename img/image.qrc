@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>su_logo.png</file>
+        <file>Dyros_Logo3.png</file>
+    </qresource>
+</RCC>

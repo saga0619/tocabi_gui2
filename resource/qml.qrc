@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>JoystickCheck.qml</file>
+        <file>Command.qml</file>
+        <file>Status.qml</file>
+        <file>VirtualJoy.qml</file>
+        <file>NewTab.qml</file>
+        <file>NumberPad.qml</file>
+    </qresource>
+</RCC>
