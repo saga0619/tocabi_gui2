@@ -8,8 +8,6 @@ Page {
     width: 1024
     height: 600
     title: qsTr("UI")
-    
-    Component.onCompleted: console.log("Complete Runnung")
 
     Frame {
         id: frame5
@@ -1045,6 +1043,14 @@ Page {
         y: 248
         text: qsTr("floor status")
         font.pixelSize: 12
+    }
+
+    Text {
+        x: 699
+        y: 36
+        text: qsTr("Text")
+        font.pixelSize: 12
+        objectName: "bool_"
     }
 
 }

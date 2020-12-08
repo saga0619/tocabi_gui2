@@ -41,44 +41,50 @@ Page {
             x: 12
             y: 25
             width: 48
-            height: 165
             anchors.right: cl7.left
             anchors.rightMargin: 5
 
 
             Text {
                 id:larm
+                height: 20
                 text: qsTr("Left Arm")
                 font.pixelSize: 12
 
             }
 
             Text {
+                height: 20
                 text: qsTr("x")
                 font.pixelSize: 12
 
             }
             Text {
+                height: 20
                 text: qsTr("y")
                 font.pixelSize: 12
 
             }
             Text {
+                height: 20
                 text: qsTr("z")
                 font.pixelSize: 12
 
             }
             Text {
+                height: 20
                 text: qsTr("roll")
                 font.pixelSize: 12
 
             }
             Text {
+                height: 20
                 text: qsTr("pitch")
                 font.pixelSize: 12
 
             }
             Text {
+                height: 20
                 text: qsTr("yaw")
                 font.pixelSize: 12
 
@@ -91,7 +97,6 @@ Page {
             x: 72
             y: 25
             width: 80
-            height: 165
             anchors.bottom: cl3.bottom
             anchors.bottomMargin: 0
             spacing: 10
@@ -104,7 +109,7 @@ Page {
 
             Button {
                 objectName: "text_l_x"
-                height: 15
+                height: 20
                 width: parent.width
                 text: pad.l_x
                 onClicked: {
@@ -121,7 +126,7 @@ Page {
 
             Button {
                 objectName: "text_l_y"
-                height: 15
+                height: 20
                 width: parent.width
                 text: pad.l_y
                 onClicked: {
@@ -138,7 +143,7 @@ Page {
 
             Button {
                 objectName: "text_l_z"
-                height: 15
+                height: 20
                 width: parent.width
                 text: pad.l_z
                 onClicked: {
@@ -155,7 +160,7 @@ Page {
 
             Button {
                 objectName: "text_l_roll"
-                height: 15
+                height: 20
                 width: parent.width
                 text: pad.l_roll
                 onClicked: {
@@ -171,7 +176,7 @@ Page {
             }
             Button {
                 objectName: "text_l_pitch"
-                height: 15
+                height: 20
                 width: parent.width
                 text: pad.l_pitch
                 onClicked: {
@@ -187,7 +192,7 @@ Page {
             }
             Button {
                 objectName: "text_l_yaw"
-                height: 15
+                height: 20
                 width: parent.width
                 text: pad.l_yaw
                 onClicked: {
@@ -210,7 +215,6 @@ Page {
             spacing: 10
             id: cl4
             width: 27
-            height: 140
             anchors.bottom: cl3.bottom
             anchors.rightMargin: 10
             anchors.bottomMargin: 0
@@ -218,31 +222,37 @@ Page {
 
 
             Text {
+                height: 20
                 text: qsTr("x")
                 font.pixelSize: 12
 
             }
             Text {
+                height: 20
                 text: qsTr("y")
                 font.pixelSize: 12
 
             }
             Text {
+                height: 20
                 text: qsTr("z")
                 font.pixelSize: 12
 
             }
             Text {
+                height: 20
                 text: qsTr("roll")
                 font.pixelSize: 12
 
             }
             Text {
+                height: 20
                 text: qsTr("pitch")
                 font.pixelSize: 12
 
             }
             Text {
+                height: 20
                 text: qsTr("yaw")
                 font.pixelSize: 12
             }
@@ -255,7 +265,6 @@ Page {
             x: 236
             y: 25
             width: 80
-            height: 165
             spacing: 10
             anchors.bottom: cl3.bottom
             anchors.bottomMargin: 0
@@ -269,7 +278,7 @@ Page {
 
             Button {
                 objectName: "text_r_x"
-                height: 15
+                height: 20
                 width: parent.width
                 text: pad.r_x
                 onClicked: {
@@ -287,7 +296,7 @@ Page {
 
             Button {
                 objectName: "text_r_y"
-                height: 15
+                height: 20
                 width: parent.width
                 text: pad.r_y
                 onClicked: {
@@ -304,7 +313,7 @@ Page {
 
             Button {
                 objectName: "text_r_z"
-                height: 15
+                height: 20
                 width: parent.width
                 text: pad.r_z
                 onClicked: {
@@ -320,7 +329,7 @@ Page {
             }
             Button {
                 objectName: "text_r_roll"
-                height: 15
+                height: 20
                 width: parent.width
                 text: pad.r_roll
                 onClicked: {
@@ -336,7 +345,7 @@ Page {
             }
             Button {
                 objectName: "text_r_pitch"
-                height: 15
+                height: 20
                 width: parent.width
                 text: pad.r_pitch
                 onClicked: {
@@ -352,7 +361,7 @@ Page {
             }
             Button {
                 objectName: "text_r_yaw"
-                height: 15
+                height: 20
                 width: parent.width
                 text: pad.r_yaw
                 onClicked: {
@@ -390,31 +399,37 @@ Page {
 
 
                 Text {
+                    height: 20
                     text: qsTr("COM pos")
                     font.pixelSize: 12
 
                 }
                 Text {
+                    height: 20
                     text: qsTr("Height")
                     font.pixelSize: 12
 
                 }
                 Text {
+                    height: 20
                     text: qsTr("pelv pitch")
                     font.pixelSize: 12
 
                 }
                 Text {
+                    height: 20
                     text: qsTr("roll")
                     font.pixelSize: 12
 
                 }
                 Text {
+                    height: 20
                     text: qsTr("pitch")
                     font.pixelSize: 12
 
                 }
                 Text {
+                    height: 20
                     text: qsTr("yaw")
                     font.pixelSize: 12
                 }
@@ -432,7 +447,7 @@ Page {
 
                 Button {
                     objectName: "com_pos"
-                    height: 15
+                    height: 20
                     width: parent.width
                     text: pad.com_pos
                     onClicked: {
@@ -450,7 +465,7 @@ Page {
 
                 Button {
                     objectName: "com_height"
-                    height: 15
+                    height: 20
                     width: parent.width
                     text: pad.com_height
                     onClicked: {
@@ -466,7 +481,7 @@ Page {
                 }
                 Button {
                     objectName: "pelv_pitch"
-                    height: 15
+                    height: 20
                     width: parent.width
                     text: pad.pelv_pitch
                     onClicked: {
@@ -482,7 +497,7 @@ Page {
                 }
                 Button {
                     objectName: "com_roll"
-                    height: 15
+                    height: 20
                     width: parent.width
                     text: pad.com_roll
                     onClicked: {
@@ -498,7 +513,7 @@ Page {
                 }
                 Button {
                     objectName: "com_pitch"
-                    height: 15
+                    height: 20
                     width: parent.width
                     text: pad.com_pitch
                     onClicked: {
@@ -514,7 +529,7 @@ Page {
                 }
                 Button {
                     objectName: "com_yaw"
-                    height: 15
+                    height: 20
                     width: parent.width
                     text: pad.com_yaw
                     onClicked: {
@@ -535,7 +550,7 @@ Page {
             id:checkBoxs
             spacing: 25
             anchors.top: cl3.bottom
-            anchors.topMargin: 20
+            anchors.topMargin: 42
             anchors.left: cl3.left
 
             CheckBox {
@@ -875,7 +890,7 @@ Page {
 
                 Button {
                     objectName: "text_traj_time"
-                    height: 15
+                    height: 20
                     width: 200
                     text: pad.traj_time
                     onClicked: {

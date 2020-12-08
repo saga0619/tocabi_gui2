@@ -7,10 +7,31 @@
 
 
 
-ros_connect::ros_connect(QObject *parent, int argc, char** argv) : QObject(parent)
+ros_connect::ros_connect(QObject *parent, ros::NodeHandle &nh) : QObject(parent)
     {
-	m_Q = parent;
-        tt=0;
+        button_pub = nh.advertise<std_msgs::String>("/tocabi/command", 100);
+        joint_sub = nh.subscribe("/tocabi/jointstates", 1, &ros_connect::joint_cb, this);
+        sensor_sub = nh.subscribe("/mujoco_ros_interface/sensor_states", 1, &ros_connect::sensor_cb, this);
+        time_sub = nh.subscribe("/tocabi/time", 1, &ros_connect::time_cb, this);
+        m_Q = parent;
+
+        pos_sub = nh.subscribe("/tocabi/point", 1, &ros_connect::pos_cb, this);
+        tt = 0;
+
+        joystick_sub = nh.subscribe("/controller/gui_command",1,&ros_connect::joystick_cb, this);
+
+        com_pub = nh.advertise<std_msgs::String>("/tocabi/command", 100);
+        task_pub = nh.advertise<tocabi_controller::TaskCommand>("/tocabi/taskcommand", 100);
+        task_que_pub = nh.advertise<tocabi_controller::TaskCommandQue>("/tocabi/taskquecommand", 100);
+
+        velcommand_pub = nh.advertise<tocabi_controller::VelocityCommand>("/tocabi/velcommand", 100);
+
+        android_pub = nh.advertise<tocabi_controller::TaskCommand>("/tocabi/taskcommand", 100);
+        android_sub  =  nh.subscribe("/controller/android_command", 1 , &ros_connect::android_cb,this);
+
+        //ardu_sub = nh.subscribe("/msgbyar", 1, &ros_connect::pushed_msg,this);
+        
+        
         char buf[128];
         char buf2[128];
 
@@ -34,35 +55,6 @@ ros_connect::ros_connect(QObject *parent, int argc, char** argv) : QObject(paren
 
         // std::cout<< "text_l_x :" << dd_ << std::endl;;
 
-        //init_ros();
-    }
-void ros_connect::init_ros()
-    {
-	ros::init(argc, argv, "tocabi_qui");
-	ros::NodeHandle nh;
-
-
-        button_pub = nh.advertise<std_msgs::String>("/tocabi/command", 100);
-        joint_sub = nh.subscribe("/tocabi/jointstates", 1, &ros_connect::joint_cb, this);
-        sensor_sub = nh.subscribe("/mujoco_ros_interface/sensor_states", 1, &ros_connect::sensor_cb, this);
-        time_sub = nh.subscribe("/tocabi/time", 1, &ros_connect::time_cb, this);
-        
-
-        pos_sub = nh.subscribe("/tocabi/point", 1, &ros_connect::pos_cb, this);
-        
-
-        joystick_sub = nh.subscribe("/controller/gui_command",1,&ros_connect::joystick_cb, this);
-
-        com_pub = nh.advertise<std_msgs::String>("/tocabi/command", 100);
-        task_pub = nh.advertise<tocabi_controller::TaskCommand>("/tocabi/taskcommand", 100);
-        task_que_pub = nh.advertise<tocabi_controller::TaskCommandQue>("/tocabi/taskquecommand", 100);
-
-        velcommand_pub = nh.advertise<tocabi_controller::VelocityCommand>("/tocabi/velcommand", 100);
-
-        android_pub = nh.advertise<tocabi_controller::TaskCommand>("/tocabi/taskcommand", 100);
-        android_sub  =  nh.subscribe("/controller/android_command", 1 , &ros_connect::android_cb,this);
-  
-	ros_init = true;
     }
 
 void ros_connect::click_ros(QString msg)
@@ -208,10 +200,7 @@ void ros_connect::switch_ros(int id, char *msg){
 
 void ros_connect::update()
     {
-        if(ros_init)
-        {
-            ros::spinOnce();
-        }
+        ros::spinOnce();
     }
 double ros_connect::t_x(){
         return tt;
@@ -986,3 +975,8 @@ float ros_connect::pp(float val){
         return val / 150.0;
     }
 }
+//void ros_connect::pushed_msg(const std_msgs::Bool &msg){
+
+//    //m_Q->findChild<QObject *>("bool_")->setProperty("text", msg.data);
+
+//}
