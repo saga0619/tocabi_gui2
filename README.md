@@ -1,4 +1,8 @@
+based on https://github.com/saga0619/tocabi_qui
 
-```sh
-sudo apt-get install qml-module-qtquick*
-```
+
+to do: 
+
+- task que number is confusing - once delete/reset, the number of task also changes
+- make it more neat and tidy
+

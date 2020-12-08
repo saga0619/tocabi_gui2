@@ -9,13 +9,13 @@ ApplicationWindow {
     visible: true
     width: 1024
     height: 600
-    //Component.onCompleted: ros.init_ros()
     title: qsTr("Tocabi Controller")
 
     //    SwipeView {
     //        id: swipeView2
     //        anchors.fill: parent
     //        currentIndex: tabBar.currentIndex
+    
 
     SwipeView{
         id: swipeView

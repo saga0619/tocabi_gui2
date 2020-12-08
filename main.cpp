@@ -9,8 +9,8 @@
 
 int main(int argc, char *argv[])
 {
-    //ros::init(argc,argv,"tocabi_qui");
-    //ros::NodeHandle nh;
+    ros::init(argc,argv,"tocabi_qui");
+    ros::NodeHandle nh;
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
@@ -24,8 +24,7 @@ int main(int argc, char *argv[])
     QObject* root = engine.rootObjects()[0];
 
 
-    
-    ros_connect ros(root, argc, argv);
+    ros_connect ros(root,nh);
 
     engine.rootContext()->setContextProperty("ros", &ros);
 

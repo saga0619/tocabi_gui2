@@ -70,7 +70,7 @@ Rectangle {
 //            return
 //        if (digits.toString().length >= display.maxDigits)
 //            return
-        if (lastOp.toString().length == 1 && ((lastOp >= "0" && lastOp <= "9") || lastOp == ".") ) {
+        if (lastOp.toString().length == 1 && ((lastOp >= "0" && lastOp <= "9") || lastOp == "." || lastOp == "-") ) {
             digits = digits + op.toString()
             pad.appendDigit(digits)
         }
@@ -183,7 +183,10 @@ Rectangle {
         Button { text: "."; onClicked: digitPressed(text)}
         Button { text: "C"; onClicked: operatorPressed(text) }
     }
-    Button{ x: 20; y: 15; width: 310; height: 40;text: "close"; onClicked: pad.visible = false}
+
+    Button { x: 20; y: 17; text: "-"; onClicked: digitPressed(text)}
+
+    Button{ x: 126; y: 17; width: 204; height: 40;text: "X"; flat: false; highlighted: true; font.pointSize: 25; font.bold: true; onClicked: pad.visible = false}
 
 
 }
