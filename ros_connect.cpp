@@ -9,16 +9,8 @@
 
 ros_connect::ros_connect(QObject *parent, int argc, char** argv) : QObject(parent)
     {
-	m_Q = parent;
+	    m_Q = parent;
         tt=0;
-        char buf[128];
-        char buf2[128];
-
-        std::sprintf(buf, "%6.2f", 15.48721241);
-        std::sprintf(buf2, "t%d", 1);
-
-        m_Q->findChild<QObject *>(buf2)->setProperty("text", buf);
-
         //How to Get Property from Qobject
         // QVariant Qvar = m_Q->findChild<QObject *>(buf2)->property("text");
         // QString Qstr = Qvar.toString();
@@ -38,8 +30,8 @@ ros_connect::ros_connect(QObject *parent, int argc, char** argv) : QObject(paren
     }
 void ros_connect::init_ros()
     {
-	ros::init(argc, argv, "tocabi_qui");
-	ros::NodeHandle nh;
+	    ros::init(argc, argv, "tocabi_qui");
+	    ros::NodeHandle nh;
 
 
         button_pub = nh.advertise<std_msgs::String>("/tocabi/command", 100);
@@ -62,7 +54,10 @@ void ros_connect::init_ros()
         android_pub = nh.advertise<tocabi_controller::TaskCommand>("/tocabi/taskcommand", 100);
         android_sub  =  nh.subscribe("/controller/android_command", 1 , &ros_connect::android_cb,this);
   
-	ros_init = true;
+	    ros_init = true;
+
+
+        m_Q->findChild<QObject *>("ros_button")->setProperty("text", "ROS CONNECTED");
     }
 
 void ros_connect::click_ros(QString msg)
