@@ -7,5 +7,6 @@
         <file>VirtualJoy.qml</file>
         <file>NewTab.qml</file>
         <file>NumberPad.qml</file>
+        <file>Init.qml</file>
     </qresource>
 </RCC>

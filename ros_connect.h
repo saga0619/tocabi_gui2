@@ -34,7 +34,7 @@
 #include "tocabi_controller/TaskGainCommand.h"
 #include "tocabi_controller/VelocityCommand.h"
 #include "tocabi_controller/positionCommand.h"
-
+#include <fcntl.h>
 #define min(x, y) (((x) < (y)) ? (x) : (y))
 #define max(x, y) (((x) > (y)) ? (x) : (y))
 
@@ -49,8 +49,16 @@ class ros_connect : public QObject
     Q_OBJECT
 public:
     explicit ros_connect(QObject *parent, int argc, char** argv);
-    int argc;
-    char** argv;
+    int argc_;
+    char** argv_;
+
+    FILE *fp;
+    int p_state;
+    int fd;
+
+    char buff[256];
+
+
     Q_INVOKABLE void init_ros();
 
     Q_INVOKABLE void click_ros(QString msg);
@@ -73,6 +81,7 @@ public:
     Q_INVOKABLE void torqueon();
     Q_INVOKABLE void torqueoff();
     Q_INVOKABLE void emergencyOff();
+    Q_INVOKABLE void turnon_tocabi();
 
     Q_INVOKABLE void shutdown();
 
@@ -81,6 +90,8 @@ public:
     Q_INVOKABLE int tt;
     Q_INVOKABLE QString a;
     Q_INVOKABLE double target_;
+
+    void gobottom();
 
     void joint_cb(sensor_msgs::JointStateConstPtr msg);
     void sensor_cb(mujoco_ros_msgs::SensorStateConstPtr msg);
@@ -141,6 +152,7 @@ public:
 
     std::vector<task_que> tq_;
     bool ros_init = false;
+    bool tocabi_on = false;
 
     float pp(float val);
 

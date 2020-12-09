@@ -1045,32 +1045,4 @@ Page {
         font.pixelSize: 12
     }
 
-    Text {
-        x: 854
-        y: 49
-        width: 143
-        height: 16
-        text: qsTr("NOT CONNECTED")
-        font.pixelSize: 16
-        objectName: "ros_button"
-    }
-
-    Button {
-        id: button
-        x: 730
-        y: 37
-        text: qsTr("ROS CONNECT")
-        onClicked: ros.init_ros()
-    }
-
-    Button {
-        id: button1
-        x: 613
-        y: 37
-        width: 109
-        height: 40
-        text: qsTr("POWER")
-        onClicked: ros.shutdown()
-    }
-
 }

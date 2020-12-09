@@ -31,6 +31,10 @@ ApplicationWindow {
                 Qt.callLater(function() { interactive = true })
             }
         }
+        Init{
+            id: init
+
+        }
 
         Status {
         }
@@ -52,6 +56,10 @@ ApplicationWindow {
         id: tabBar
         currentIndex: swipeView.currentIndex
 
+
+        TabButton {
+            text: qsTr("Robot")
+        }
 
         TabButton {
             text: qsTr("Status")
