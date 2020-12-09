@@ -779,7 +779,7 @@ Page {
             id: p32
             x: 0
             y: 0
-            objectName: "p32"
+            objectName: "p34"
             value: 0.5
         }
 
@@ -787,7 +787,7 @@ Page {
             id: p33
             x: 0
             y: 20
-            objectName: "p33"
+            objectName: "p35"
             value: 0.5
         }
 
@@ -795,7 +795,7 @@ Page {
             id: p34
             x: 0
             y: 40
-            objectName: "p34"
+            objectName: "p36"
             value: 0.5
         }
 
@@ -803,7 +803,7 @@ Page {
             id: p35
             x: 0
             y: 60
-            objectName: "p35"
+            objectName: "p37"
             value: 0.5
         }
 
@@ -811,7 +811,7 @@ Page {
             id: p36
             x: 0
             y: 80
-            objectName: "p36"
+            objectName: "p38"
             value: 0.5
         }
 
@@ -819,7 +819,7 @@ Page {
             id: p37
             x: 0
             y: 100
-            objectName: "p37"
+            objectName: "p39"
             value: 0.5
         }
 
@@ -830,7 +830,7 @@ Page {
             color: "#000000"
             text: qsTr("000.000")
             horizontalAlignment: Text.AlignRight
-            objectName: "t32"
+            objectName: "t34"
             font.pixelSize: 12
         }
 
@@ -840,7 +840,7 @@ Page {
             y: 16
             text: qsTr("000.000")
             horizontalAlignment: Text.AlignRight
-            objectName: "t33"
+            objectName: "t35"
             font.pixelSize: 12
         }
 
@@ -850,7 +850,7 @@ Page {
             y: 36
             text: qsTr("000.000")
             horizontalAlignment: Text.AlignRight
-            objectName: "t34"
+            objectName: "t36"
             font.pixelSize: 12
         }
 
@@ -860,7 +860,7 @@ Page {
             y: 56
             text: qsTr("000.000")
             horizontalAlignment: Text.AlignRight
-            objectName: "t35"
+            objectName: "t37"
             font.pixelSize: 12
         }
 
@@ -870,7 +870,7 @@ Page {
             y: 76
             text: qsTr("000.000")
             horizontalAlignment: Text.AlignRight
-            objectName: "t36"
+            objectName: "t38"
             font.pixelSize: 12
         }
 
@@ -880,7 +880,7 @@ Page {
             y: 96
             text: qsTr("000.000")
             horizontalAlignment: Text.AlignRight
-            objectName: "t37"
+            objectName: "t39"
             font.pixelSize: 12
         }
 
@@ -903,7 +903,7 @@ Page {
             id: p38
             x: 0
             y: 0
-            objectName: "p38"
+            objectName: "p40"
             value: 0.5
         }
 
@@ -911,7 +911,7 @@ Page {
             id: p39
             x: 0
             y: 20
-            objectName: "p39"
+            objectName: "p41"
             value: 0.5
         }
 
@@ -919,7 +919,7 @@ Page {
             id: p40
             x: 0
             y: 40
-            objectName: "p40"
+            objectName: "p42"
             value: 0.5
         }
 
@@ -927,7 +927,7 @@ Page {
             id: p41
             x: 0
             y: 60
-            objectName: "p41"
+            objectName: "p43"
             value: 0.5
         }
 
@@ -935,7 +935,7 @@ Page {
             id: p42
             x: 0
             y: 80
-            objectName: "p42"
+            objectName: "p44"
             value: 0.5
         }
 
@@ -943,7 +943,7 @@ Page {
             id: p43
             x: 0
             y: 100
-            objectName: "p43"
+            objectName: "p45"
             value: 0.5
         }
 
@@ -954,7 +954,7 @@ Page {
             color: "#000000"
             text: qsTr("000.000")
             horizontalAlignment: Text.AlignRight
-            objectName: "t38"
+            objectName: "t40"
             font.pixelSize: 12
         }
 
@@ -964,7 +964,7 @@ Page {
             y: 16
             text: qsTr("000.000")
             horizontalAlignment: Text.AlignRight
-            objectName: "t39"
+            objectName: "t41"
             font.pixelSize: 12
         }
 
@@ -974,7 +974,7 @@ Page {
             y: 36
             text: qsTr("000.000")
             horizontalAlignment: Text.AlignRight
-            objectName: "t40"
+            objectName: "t42"
             font.pixelSize: 12
         }
 
@@ -984,7 +984,7 @@ Page {
             y: 56
             text: qsTr("000.000")
             horizontalAlignment: Text.AlignRight
-            objectName: "t41"
+            objectName: "t43"
             font.pixelSize: 12
         }
 
@@ -994,7 +994,7 @@ Page {
             y: 76
             text: qsTr("000.000")
             horizontalAlignment: Text.AlignRight
-            objectName: "t42"
+            objectName: "t44"
             font.pixelSize: 12
         }
 
@@ -1004,7 +1004,7 @@ Page {
             y: 96
             text: qsTr("000.000")
             horizontalAlignment: Text.AlignRight
-            objectName: "t43"
+            objectName: "t45"
             font.pixelSize: 12
         }
 
@@ -1045,4 +1045,36 @@ Page {
         font.pixelSize: 12
     }
 
+    Button {
+        id: button
+        x: 614
+        y: 42
+        text: qsTr("MODE")
+        onClicked: ros.modeChange()
+    }
+
+    Text {
+        id: text11
+        objectName: "deg1"
+        x: 250
+        y: 21
+        text: qsTr("DEG")
+        font.pixelSize: 14
+    }
+
+    Text {
+        id: text12
+        objectName: "deg2"
+        x: 548
+        y: 21
+        text: qsTr("DEG")
+        font.pixelSize: 14
+    }
+
 }
+
+/*##^##
+Designer {
+    D{i:0;formeditorZoom:1.25}
+}
+##^##*/

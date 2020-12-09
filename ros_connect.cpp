@@ -3,7 +3,41 @@
 
 #define min(x, y) (((x) < (y)) ? (x) : (y))
 #define max(x, y) (((x) > (y)) ? (x) : (y))
-
+float NM2CNT[33] = {
+    3.0,
+    4.3,
+    3.8,
+    3.46,
+    4.5,
+    12.33,
+    3.0,
+    4.3,
+    3.8,
+    3.46,
+    4.5,
+    12.33,
+    3.3,
+    3.3,
+    3.3,
+    15.5,
+    15.5,
+    15.5,
+    15.5,
+    42.0,
+    42.0,
+    95.0,
+    95.0,
+    95.0,
+    95.0,
+    15.5,
+    15.5,
+    15.5,
+    15.5,
+    42.0,
+    42.0,
+    95.0,
+    95.0,
+};
 ros_connect::ros_connect(QObject *parent, int argc, char **argv) : QObject(parent)
 {
     m_Q = parent;
@@ -32,7 +66,6 @@ void ros_connect::init_ros()
     ros::NodeHandle nh;
 
     joint_sub = nh.subscribe("/tocabi/jointstates", 1, &ros_connect::joint_cb, this);
-    sensor_sub = nh.subscribe("/mujoco_ros_interface/sensor_states", 1, &ros_connect::sensor_cb, this);
     time_sub = nh.subscribe("/tocabi/time", 1, &ros_connect::time_cb, this);
 
     pos_sub = nh.subscribe("/tocabi/point", 1, &ros_connect::pos_cb, this);
@@ -247,6 +280,31 @@ double ros_connect::t_x()
 {
     return tt;
 }
+void ros_connect::modeChange()
+{
+    torque++;
+
+    if (torque > 2)
+    {
+        torque = 0;
+    }
+
+    if (torque == 0)
+    {
+        m_Q->findChild<QObject *>("deg1")->setProperty("text", "DEG");
+        m_Q->findChild<QObject *>("deg2")->setProperty("text", "DEG");
+    }
+    else if (torque == 1)
+    {
+        m_Q->findChild<QObject *>("deg1")->setProperty("text", "RAD");
+        m_Q->findChild<QObject *>("deg2")->setProperty("text", "RAD");
+    }
+    else if (torque == 2)
+    {
+        m_Q->findChild<QObject *>("deg1")->setProperty("text", "NM");
+        m_Q->findChild<QObject *>("deg2")->setProperty("text", "NM");
+    }
+}
 
 void ros_connect::joint_cb(sensor_msgs::JointStateConstPtr msg)
 {
@@ -254,109 +312,109 @@ void ros_connect::joint_cb(sensor_msgs::JointStateConstPtr msg)
     char buf2[128];
     float dot;
 
+    float num_tocabi[33];
+    int color_tocabi[33];
+    float prg_tocabi[33];
+
+    float j_data;
+    float limit, data_prg, data_txt;
+
+    for (int i = 0; i < 33; i++)
+    {
+
+        if (torque == 0)
+        {
+            j_data = msg->position[i];
+            limit = 3.141592;
+            data_prg = j_data / (limit * 2) + 0.5;
+            data_txt = j_data / 3.141592 * 180.0;
+        }
+        else if (torque == 1)
+        {
+            j_data = msg->position[i];
+            limit = 3.141592;
+            data_prg = j_data / (limit * 2) + 0.5;
+            data_txt = j_data;
+        }
+        else if (torque == 2)
+        {
+            j_data = msg->effort[i];
+            limit = 1000 / NM2CNT[i];
+            data_prg = abs(j_data / limit);
+            data_txt = j_data;
+        }
+
+        num_tocabi[i] = data_txt;
+        color_tocabi[i] = (int)(abs(j_data) / limit * 256);
+        prg_tocabi[i] = data_prg;
+    }
+
     // Left Arm
     for (int i = 15; i < 23; i++)
     {
-        dot = msg->position[i] * 50.0;
-        std::sprintf(buf, "%8.3f", dot);
-        std::sprintf(buf2, "t%d", i + 4);
+        std::sprintf(buf, "%8.3f", num_tocabi[i]);
+        std::sprintf(buf2, "t%d", i + 9);
         m_Q->findChild<QObject *>(buf2)->setProperty("text", buf);
-
-        std::sprintf(buf, "#%02X0000", (int)(pp(dot) * 256.0));
+        std::sprintf(buf, "#%02X0000", color_tocabi[i]);
         m_Q->findChild<QObject *>(buf2)->setProperty("color", buf);
-
-        std::sprintf(buf2, "p%d", i - 2);
-        m_Q->findChild<QObject *>(buf2)->setProperty("value", pp(dot));
+        std::sprintf(buf2, "p%d", i + 9);
+        m_Q->findChild<QObject *>(buf2)->setProperty("value", prg_tocabi[i]);
     }
 
     // Right Arm
     for (int i = 25; i < 33; i++)
     {
-        dot = msg->position[i] * 50.0;
-        std::sprintf(buf, "%8.3f", dot);
-        std::sprintf(buf2, "t%d", i - 12);
+        std::sprintf(buf, "%8.3f", num_tocabi[i]);
+        std::sprintf(buf2, "t%d", i - 9);
         m_Q->findChild<QObject *>(buf2)->setProperty("text", buf);
 
-        std::sprintf(buf, "#%02X0000", (int)(pp(dot) * 256.0));
+        std::sprintf(buf, "#%02X0000", color_tocabi[i]);
         m_Q->findChild<QObject *>(buf2)->setProperty("color", buf);
 
-        std::sprintf(buf2, "p%d", i - 6);
-        m_Q->findChild<QObject *>(buf2)->setProperty("value", pp(dot));
+        std::sprintf(buf2, "p%d", i - 9);
+        m_Q->findChild<QObject *>(buf2)->setProperty("value", prg_tocabi[i]);
     }
 
     // Left Leg
     for (int i = 0; i < 6; i++)
     {
-        dot = msg->position[i] * 50.0;
-        std::sprintf(buf, "%8.3f", dot);
+        std::sprintf(buf, "%8.3f", num_tocabi[i]);
         std::sprintf(buf2, "t%d", i + 7);
         m_Q->findChild<QObject *>(buf2)->setProperty("text", buf);
 
-        std::sprintf(buf, "#%02X0000", (int)(pp(dot) * 256.0));
+        std::sprintf(buf, "#%02X0000", color_tocabi[i]);
         m_Q->findChild<QObject *>(buf2)->setProperty("color", buf);
 
         std::sprintf(buf2, "p%d", i + 7);
-        m_Q->findChild<QObject *>(buf2)->setProperty("value", pp(dot));
+        m_Q->findChild<QObject *>(buf2)->setProperty("value", prg_tocabi[i]);
     }
 
     // Right Leg
     for (int i = 6; i < 12; i++)
     {
-        dot = msg->position[i] * 50.0;
-        std::sprintf(buf, "%8.3f", dot);
+        std::sprintf(buf, "%8.3f", num_tocabi[i]);
         std::sprintf(buf2, "t%d", i - 5);
         m_Q->findChild<QObject *>(buf2)->setProperty("text", buf);
 
-        std::sprintf(buf, "#%02X0000", (int)(pp(dot) * 256.0));
+        std::sprintf(buf, "#%02X0000", color_tocabi[i]);
         m_Q->findChild<QObject *>(buf2)->setProperty("color", buf);
 
         std::sprintf(buf2, "p%d", i - 5);
-        m_Q->findChild<QObject *>(buf2)->setProperty("value", pp(dot));
+        m_Q->findChild<QObject *>(buf2)->setProperty("value", prg_tocabi[i]);
     }
 
     // Waist + Upper body
     for (int i = 12; i < 15; i++)
     {
-        dot = msg->position[i] * 50.0;
-        std::sprintf(buf, "%8.3f", dot);
-        std::sprintf(buf2, "t%d", i + 17);
+        std::sprintf(buf, "%8.3f", num_tocabi[i]);
+        std::sprintf(buf2, "t%d", i + 1);
         m_Q->findChild<QObject *>(buf2)->setProperty("text", buf);
 
-        std::sprintf(buf, "#%02X0000", (int)(pp(dot) * 256.0));
+        std::sprintf(buf, "#%02X0000", color_tocabi[i]);
         m_Q->findChild<QObject *>(buf2)->setProperty("color", buf);
 
-        std::sprintf(buf2, "p%d", i + 17);
-        m_Q->findChild<QObject *>(buf2)->setProperty("value", pp(dot));
-    }
-}
-
-void ros_connect::sensor_cb(mujoco_ros_msgs::SensorStateConstPtr msg)
-{
-    char buf[128];
-    char buf2[128];
-
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = 0; j < 3; j++)
-        {
-            std::sprintf(buf, "%8.3f", msg->sensor[i + 4].data[j]);
-            std::sprintf(buf2, "t%d", 32 + 3 * i + j);
-            m_Q->findChild<QObject *>(buf2)->setProperty("text", buf);
-
-            std::sprintf(buf, "#%02X0000", (int)(pp(msg->sensor[i + 4].data[j]) * 256.0));
-            m_Q->findChild<QObject *>(buf2)->setProperty("color", buf);
-
-            std::sprintf(buf2, "p%d", 32 + 3 * i + j);
-            float ratio = 1.0;
-            if ((i == 0) || (i == 2))
-            {
-                if (j == 2)
-                {
-                    ratio = 0.3;
-                }
-            }
-            m_Q->findChild<QObject *>(buf2)->setProperty("value", ratio * pp(msg->sensor[i + 4].data[j]));
-        }
+        std::sprintf(buf2, "p%d", i + 1);
+        m_Q->findChild<QObject *>(buf2)->setProperty("value", prg_tocabi[i]);
     }
 }
 
@@ -443,6 +501,40 @@ void ros_connect::pos_cb(geometry_msgs::PolygonStampedConstPtr msg)
     x = min(msg->polygon.points[0].y * scale + com_dis_y_max * 0.5 - com_l * scale * 0.5, com_dis_y_max);
     x = max(x, 0.0);
     m_Q->findChild<QObject *>("com1")->setProperty("y", x);
+
+    char buf[128];
+    char buf2[128];
+    float data;
+
+    for (int i = 0; i < 4; i++)
+    {
+        data = msg->polygon.points[10 + i].x;
+        std::sprintf(buf, "%8.3f", data);
+        std::sprintf(buf2, "t%d", i * 3 + 34);
+        m_Q->findChild<QObject *>(buf2)->setProperty("text", buf);
+        std::sprintf(buf, "#%02X0000", (int)(pp(data / 150) * 256.0));
+        m_Q->findChild<QObject *>(buf2)->setProperty("color", buf);
+        std::sprintf(buf2, "p%d", i * 3 + 34);
+        m_Q->findChild<QObject *>(buf2)->setProperty("value", abs(data / 150));
+
+        data = msg->polygon.points[10 + i].y;
+        std::sprintf(buf, "%8.3f", data);
+        std::sprintf(buf2, "t%d", i * 3 + 35);
+        m_Q->findChild<QObject *>(buf2)->setProperty("text", buf);
+        std::sprintf(buf, "#%02X0000", (int)(pp(data / 150) * 256.0));
+        m_Q->findChild<QObject *>(buf2)->setProperty("color", buf);
+        std::sprintf(buf2, "p%d", i * 3 + 35);
+        m_Q->findChild<QObject *>(buf2)->setProperty("value", abs(data / 150));
+
+        data = msg->polygon.points[10 + i].z;
+        std::sprintf(buf, "%8.3f", data);
+        std::sprintf(buf2, "t%d", i * 3 + 36);
+        m_Q->findChild<QObject *>(buf2)->setProperty("text", buf);
+        std::sprintf(buf, "#%02X0000", (int)(pp(data / 150) * 256.0));
+        m_Q->findChild<QObject *>(buf2)->setProperty("color", buf);
+        std::sprintf(buf2, "p%d", i * 3 + 36);
+        m_Q->findChild<QObject *>(buf2)->setProperty("value", abs(data / 150));
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -649,7 +741,7 @@ void ros_connect::emergencyOff()
 }
 void ros_connect::turnon_tocabi()
 {
-    fp = popen("echo dyros | ssh -tt dyros@192.168.121.142 'sudo /home/dyros/runtocabi.sh'","r");
+    fp = popen("echo dyros | ssh -tt dyros@192.168.121.142 'sudo /home/dyros/runtocabi.sh'", "r");
     //fp = popen("/home/saga/runtocabi.sh", "r");
     fd = fileno(fp);
 
