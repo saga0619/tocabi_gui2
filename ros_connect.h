@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include <QObject>
+#include <QtWidgets/QLabel>
 #include <QString>
 #include <QPoint>
 #include <QDebug>
@@ -112,9 +113,6 @@ public:
     void VelocityHandle(const sensor_msgs::Joy::ConstPtr& msg);
     void VelHandle_android(const geometry_msgs::Twist::ConstPtr &msg);
     void ChangeConMode(int data);
-
-
-
     void handletaskmsg();
 
 //    void pushed_msg(const std_msgs::Bool &msg);
@@ -150,6 +148,9 @@ public:
     int JoyFlag = 0;
     int LTFlag = 0;
     int RTFlag = 0;
+
+    std::vector<QLabel *> ecatlabels;
+
 
     std::vector<task_que> tq_;
     bool ros_init = false;

@@ -121,50 +121,100 @@ Page {
         ProgressBar {
             id: p1
             objectName: "p1"
-            x: 0
+            x: 20
             y: 0
+            width: 180
             value: 0.5
         }
 
         ProgressBar {
             id: p2
             objectName: "p2"
-            x: 0
+            x: 20
             y: 20
+            width: 180
             value: 0.5
         }
 
         ProgressBar {
             id: p3
             objectName: "p3"
-            x: 0
+            x: 20
             y: 40
+            width: 180
             value: 0.5
         }
 
         ProgressBar {
             id: p4
             objectName: "p4"
-            x: 0
+            x: 20
             y: 60
+            width: 180
             value: 0.5
         }
 
         ProgressBar {
             id: p5
             objectName: "p5"
-            x: 0
+            x: 20
             y: 80
+            width: 180
             value: 0.5
         }
 
         ProgressBar {
             id: p6
             objectName: "p6"
-            x: 0
+            x: 20
             y: 100
+            width: 180
             value: 0.5
         }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p1.left
+            anchors.top: p1.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p2.left
+            anchors.top: p2.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p3.left
+            anchors.top: p3.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p4.left
+            anchors.top: p4.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p5.left
+            anchors.top: p5.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p6.left
+            anchors.top: p6.top
+        }
+
+
 
         Text {
             id: t1
@@ -243,50 +293,98 @@ Page {
         height: 130
         ProgressBar {
             id: p7
-            x: 0
+            x: 20
             y: 0
+            width: 180
             objectName: "p7"
             value: 0.5
         }
 
         ProgressBar {
             id: p8
-            x: 0
+            x: 20
             y: 20
+            width: 180
             objectName: "p8"
             value: 0.5
         }
 
         ProgressBar {
             id: p9
-            x: 0
+            x: 20
             y: 40
+            width: 180
             objectName: "p9"
             value: 0.5
         }
 
         ProgressBar {
             id: p10
-            x: 0
+            x: 20
             y: 60
+            width: 180
             objectName: "p10"
             value: 0.5
         }
 
         ProgressBar {
             id: p11
-            x: 0
+            x: 20
             y: 80
+            width: 180
             objectName: "p11"
             value: 0.5
         }
 
         ProgressBar {
             id: p12
-            x: 0
+            x: 20
             y: 100
+            width: 180
             objectName: "p12"
             value: 0.5
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p7.left
+            anchors.top: p7.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p8.left
+            anchors.top: p8.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p9.left
+            anchors.top: p9.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p10.left
+            anchors.top: p10.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p11.left
+            anchors.top: p11.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p12.left
+            anchors.top: p12.top
         }
 
         Text {
@@ -368,64 +466,72 @@ Page {
         height: 169
         ProgressBar {
             id: p13
-            x: 0
+            x: 20
             y: 0
+            width: 180
             objectName: "p24"
             value: 0.5
         }
 
         ProgressBar {
             id: p14
-            x: 0
+            x: 20
             y: 20
-            objectName: "p25"
+            width: 180
+            objectName: "p29"
             value: 0.5
         }
 
         ProgressBar {
             id: p15
-            x: 0
+            x: 20
             y: 40
+            width: 180
             objectName: "p26"
             value: 0.5
         }
 
         ProgressBar {
             id: p16
-            x: 0
+            x: 20
             y: 60
+            width: 180
             objectName: "p27"
             value: 0.5
         }
 
         ProgressBar {
             id: p17
-            x: 0
+            x: 20
             y: 80
+            width: 180
             objectName: "p28"
             value: 0.5
         }
 
         ProgressBar {
             id: p18
-            x: 0
+            x: 20
             y: 100
+            width: 180
             objectName: "p29"
             value: 0.5
         }
 
         ProgressBar {
             id: p27
-            x: 0
+            x: 20
             y: 120
+            width: 180
             objectName: "p30"
             value: 0.5
         }
 
         ProgressBar {
             id: p28
-            x: 0
+            x: 20
             y: 140
+            width: 180
             objectName: "p31"
             value: 0.5
         }
@@ -518,6 +624,66 @@ Page {
             text: qsTr("LeftArm")
             font.pixelSize: 16
         }
+
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p13.left
+            anchors.top: p13.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p14.left
+            anchors.top: p14.top
+
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p15.left
+            anchors.top: p15.top
+
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p16.left
+            anchors.top: p16.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p17.left
+            anchors.top: p17.top
+
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p18.left
+            anchors.top: p18.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p27.left
+            anchors.top: p27.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p28.left
+            anchors.top: p28.top
+        }
     }
 
     Frame {
@@ -528,66 +694,130 @@ Page {
         height: 169
         ProgressBar {
             id: p19
-            x: 0
+            x: 20
             y: 0
+            width: 180
             objectName: "p16"
             value: 0.5
         }
 
         ProgressBar {
             id: p20
-            x: 0
+            x: 20
             y: 20
+            width: 180
             objectName: "p17"
             value: 0.5
         }
 
         ProgressBar {
             id: p21
-            x: 0
+            x: 20
             y: 40
+            width: 180
             objectName: "p18"
             value: 0.5
         }
 
         ProgressBar {
             id: p22
-            x: 0
+            x: 20
             y: 60
+            width: 180
             objectName: "p19"
             value: 0.5
         }
 
         ProgressBar {
             id: p23
-            x: 0
+            x: 20
             y: 80
+            width: 180
             objectName: "p20"
             value: 0.5
         }
 
         ProgressBar {
             id: p24
-            x: 0
+            x: 20
             y: 100
+            width: 180
             objectName: "p21"
             value: 0.5
         }
 
         ProgressBar {
             id: p25
-            x: 0
+            x: 20
             y: 120
+            width: 180
             objectName: "p22"
             value: 0.5
         }
 
         ProgressBar {
             id: p26
-            x: 0
+            x: 20
             y: 140
+            width: 180
             objectName: "p23"
             value: 0.5
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p19.left
+            anchors.top: p19.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p20.left
+            anchors.top: p20.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p21.left
+            anchors.top: p21.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p22.left
+            anchors.top: p22.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p23.left
+            anchors.top: p23.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p24.left
+            anchors.top: p24.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p25.left
+            anchors.top: p25.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p26.left
+            anchors.top: p26.top
         }
 
         Text {
@@ -687,26 +917,50 @@ Page {
         height: 72
         ProgressBar {
             id: p29
-            x: 0
+            x: 20
             y: 0
+            width: 180
             objectName: "p13"
             value: 0.5
         }
 
         ProgressBar {
             id: p30
-            x: 0
+            x: 20
             y: 20
+            width: 180
             objectName: "p14"
             value: 0.5
         }
 
         ProgressBar {
             id: p31
-            x: 0
+            x: 20
             y: 40
+            width: 180
             objectName: "p15"
             value: 0.5
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p29.left
+            anchors.top: p29.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p30.left
+            anchors.top: p30.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p31.left
+            anchors.top: p31.top
         }
 
         Text {
@@ -777,50 +1031,98 @@ Page {
         height: 130
         ProgressBar {
             id: p32
-            x: 0
+            x: 20
             y: 0
+            width: 180
             objectName: "p34"
             value: 0.5
         }
 
         ProgressBar {
             id: p33
-            x: 0
+            x: 20
             y: 20
+            width: 180
             objectName: "p35"
             value: 0.5
         }
 
         ProgressBar {
             id: p34
-            x: 0
+            x: 20
             y: 40
+            width: 180
             objectName: "p36"
             value: 0.5
         }
 
         ProgressBar {
             id: p35
-            x: 0
+            x: 20
             y: 60
+            width: 180
             objectName: "p37"
             value: 0.5
         }
 
         ProgressBar {
             id: p36
-            x: 0
+            x: 20
             y: 80
+            width: 180
             objectName: "p38"
             value: 0.5
         }
 
         ProgressBar {
             id: p37
-            x: 0
+            x: 20
             y: 100
+            width: 180
             objectName: "p39"
             value: 0.5
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p32.left
+            anchors.top: p32.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p33.left
+            anchors.top: p33.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p34.left
+            anchors.top: p34.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p35.left
+            anchors.top: p35.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p36.left
+            anchors.top: p36.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p37.left
+            anchors.top: p37.top
         }
 
         Text {
@@ -901,50 +1203,98 @@ Page {
         height: 130
         ProgressBar {
             id: p38
-            x: 0
+            x: 20
             y: 0
+            width: 180
             objectName: "p40"
             value: 0.5
         }
 
         ProgressBar {
             id: p39
-            x: 0
+            x: 20
             y: 20
+            width: 180
             objectName: "p41"
             value: 0.5
         }
 
         ProgressBar {
             id: p40
-            x: 0
+            x: 20
             y: 40
+            width: 180
             objectName: "p42"
             value: 0.5
         }
 
         ProgressBar {
             id: p41
-            x: 0
+            x: 20
             y: 60
+            width: 180
             objectName: "p43"
             value: 0.5
         }
 
         ProgressBar {
             id: p42
-            x: 0
+            x: 20
             y: 80
+            width: 180
             objectName: "p44"
             value: 0.5
         }
 
         ProgressBar {
             id: p43
-            x: 0
+            x: 20
             y: 100
+            width: 180
             objectName: "p45"
             value: 0.5
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p38.left
+            anchors.top: p38.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p39.left
+            anchors.top: p39.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p40.left
+            anchors.top: p40.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p41.left
+            anchors.top: p41.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p42.left
+            anchors.top: p42.top
+        }
+        Rectangle {
+            width: 20
+            height: 6
+            color: "#f61e1e"
+            anchors.right: p43.left
+            anchors.top: p43.top
         }
 
         Text {
