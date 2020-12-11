@@ -38,6 +38,7 @@ void ros_connect::init_ros()
         joint_sub = nh.subscribe("/tocabi/jointstates", 1, &ros_connect::joint_cb, this);
         sensor_sub = nh.subscribe("/mujoco_ros_interface/sensor_states", 1, &ros_connect::sensor_cb, this);
         time_sub = nh.subscribe("/tocabi/time", 1, &ros_connect::time_cb, this);
+
         
 
         pos_sub = nh.subscribe("/tocabi/point", 1, &ros_connect::pos_cb, this);
@@ -987,6 +988,8 @@ void ros_connect::walkingstartbtncb()
     //     velcmd_msg.des_vel[start_index + 2] = (slider_val_3 - 50) / 200.0 * slider_val_4;
     //     velcommand_pub.publish(velcmd_msg);
     // }
+
+    
 
 
 
