@@ -35,7 +35,7 @@
 #include "tocabi_controller/TaskGainCommand.h"
 #include "tocabi_controller/VelocityCommand.h"
 #include "tocabi_controller/positionCommand.h"
-
+#include <fcntl.h>
 #define min(x, y) (((x) < (y)) ? (x) : (y))
 #define max(x, y) (((x) > (y)) ? (x) : (y))
 
@@ -50,8 +50,18 @@ class ros_connect : public QObject
     Q_OBJECT
 public:
     explicit ros_connect(QObject *parent, int argc, char** argv);
-    int argc;
-    char** argv;
+    int argc_;
+    char** argv_;
+
+    FILE *fp;
+    int p_state;
+    int fd;
+
+    char buff[256];
+
+    int torque = 0;
+
+
     Q_INVOKABLE void init_ros();
 
     Q_INVOKABLE void click_ros(QString msg);
@@ -74,7 +84,8 @@ public:
     Q_INVOKABLE void torqueon();
     Q_INVOKABLE void torqueoff();
     Q_INVOKABLE void emergencyOff();
-
+    Q_INVOKABLE void turnon_tocabi();
+    Q_INVOKABLE void modeChange();
     Q_INVOKABLE void shutdown();
 
     Q_INVOKABLE void update();
@@ -83,8 +94,9 @@ public:
     Q_INVOKABLE QString a;
     Q_INVOKABLE double target_;
 
+    void gobottom();
+
     void joint_cb(sensor_msgs::JointStateConstPtr msg);
-    void sensor_cb(mujoco_ros_msgs::SensorStateConstPtr msg);
     void time_cb(std_msgs::Float32ConstPtr msg);
     void pos_cb(geometry_msgs::PolygonStampedConstPtr msg);
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -101,7 +113,6 @@ public:
     void VelocityHandle(const sensor_msgs::Joy::ConstPtr& msg);
     void VelHandle_android(const geometry_msgs::Twist::ConstPtr &msg);
     void ChangeConMode(int data);
-
     void handletaskmsg();
 
 //    void pushed_msg(const std_msgs::Bool &msg);
@@ -113,7 +124,6 @@ public:
     sensor_msgs::JointState state;
     ros::Subscriber joint_sub;
     ros::Subscriber time_sub;
-    ros::Subscriber sensor_sub;
     ros::Subscriber pos_sub;
     ros::Publisher button_pub;
     ros::Publisher switch_pub;
@@ -144,6 +154,7 @@ public:
 
     std::vector<task_que> tq_;
     bool ros_init = false;
+    bool tocabi_on = false;
 
     float pp(float val);
 
