@@ -1,4 +1,4 @@
-// "ArduinoJson" library must be installed 
+// "ArduinoJson" library must be installed in Arduino IDE
 //button pin define
 #define button_pin0 0
 #define button_pin1 1
