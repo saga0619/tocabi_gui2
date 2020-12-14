@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include <QObject>
+#include <QtWidgets/QLabel>
 #include <QString>
 #include <QPoint>
 #include <QDebug>
@@ -22,7 +23,6 @@
 #include <ros/macros.h>
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
-#include <mujoco_ros_msgs/SensorState.h>
 #include <geometry_msgs/Point.h>
 #include <geometry_msgs/Point32.h>
 #include <geometry_msgs/PointStamped.h>
@@ -106,17 +106,11 @@ public:
 ///////////////////////////////////////////////////////////////////////////////////////////////
     
     void VirtualInitHandle();
-    void Torqueon();
-    void Torqueoff();
-    void EmergencyOff();
     void VelocityHandle(const sensor_msgs::Joy::ConstPtr& msg);
     void VelHandle_android(const geometry_msgs::Twist::ConstPtr &msg);
     void ChangeConMode(int data);
-
-
-
     void handletaskmsg();
-
+    void plainTextEditcb(const std_msgs::StringConstPtr &msg);
 //    void pushed_msg(const std_msgs::Bool &msg);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -150,6 +144,11 @@ public:
     int JoyFlag = 0;
     int LTFlag = 0;
     int RTFlag = 0;
+
+    std::vector<QLabel *> ecatlabels;
+    std::vector<QObject *> safetylabels;
+
+
 
     std::vector<task_que> tq_;
     bool ros_init = false;

@@ -3,6 +3,10 @@
 
 #define min(x, y) (((x) < (y)) ? (x) : (y))
 #define max(x, y) (((x) > (y)) ? (x) : (y))
+
+int elng[33] = {0, 1, 16, 17, 9, 8, 4, 5, 13, 12, 14, 15, 7, 6, 2, 3, 11, 10, 18, 19, 27, 28, 29, 30, 31, 32, 20, 21, 22, 23, 24, 25, 26};
+
+
 float NM2CNT[33] = {
     3.0,
     4.3,
@@ -98,12 +102,63 @@ void ros_connect::init_ros()
         m_Q->findChild<QObject *>(buf)->setProperty("enabled", true);
     }
     m_Q->findChild<QObject *>("swipeView")->setProperty("enabled", true);
+
+
+    safetylabels.resize(33);
+
+    //head
+        for (int i = 0; i < 2; i++)
+        {
+            safetylabels[i] = new QObject( m_Q->findChild<QObject *>("head_safety") );
+        }
+
+//        for (int i = 2; i < 10; i++)
+//        {
+//            safetylabels[i] = new QLabel(ui_.leftarm_safety->parentWidget());
+//            ui_.leftarm_safety->addWidget(safetylabels[i]);
+//            safetylabels[i]->setFrameShape(QFrame::Panel);
+//        }
+
+//        for (int i = 10; i < 18; i++)
+//        {
+//            safetylabels[i] = new QLabel(ui_.rightarm_safety->parentWidget());
+//            ui_.rightarm_safety->addWidget(safetylabels[i]);
+//            safetylabels[i]->setFrameShape(QFrame::Panel);
+//        }
+
+//        for (int i = 18; i < 21; i++)
+//        {
+//            safetylabels[i] = new QLabel(ui_.waist_safety->parentWidget());
+//            ui_.waist_safety->addWidget(safetylabels[i]);
+//            safetylabels[i]->setFrameShape(QFrame::Panel);
+//        }
+
+//        for (int i = 21; i < 27; i++)
+//        {
+//            safetylabels[i] = new QLabel(ui_.leftleg_safety->parentWidget());
+//            ui_.leftleg_safety->addWidget(safetylabels[i]);
+//            safetylabels[i]->setFrameShape(QFrame::Panel);
+//        }
+
+//        for (int i = 27; i < 33; i++)
+//        {
+//            safetylabels[i] = new QLabel(ui_.rightleg_safety->parentWidget());
+//            ui_.rightleg_safety->addWidget(safetylabels[i]);
+//            safetylabels[i]->setFrameShape(QFrame::Panel);
+//        }
+
+        for (int i = 0; i < 2; i++)
+        {
+            safetylabels[i]->setProperty("color",  "rgb(138, 226, 52)" );
+        }
+
+
 }
 
 void ros_connect::shutdown()
 {
     pclose(fp);
-    system("shutdown -P now");
+    system("sudo shutdown -P now");
 }
 
 void ros_connect::click_ros(QString msg)
@@ -233,9 +288,10 @@ void ros_connect::virjoy(float x, float y, int i)
 
 void ros_connect::button_ros(int id, QString msg)
 {
-    std_msgs::String msg_;
-    msg_.data = msg.toUtf8().constData();
-    com_pub.publish(msg_);
+    //if(msg.toStdString == )
+    //std_msgs::String msg_;
+    com_msg.data = msg.toStdString();    //msg_.data = msg.toUtf8().constData();
+    com_pub.publish(com_msg);
 }
 
 void ros_connect::switch_ros(int id, char *msg)
@@ -412,6 +468,7 @@ void ros_connect::joint_cb(sensor_msgs::JointStateConstPtr msg)
         std::sprintf(buf2, "p%d", i + 1);
         m_Q->findChild<QObject *>(buf2)->setProperty("value", prg_tocabi[i]);
     }
+
 }
 
 void ros_connect::time_cb(std_msgs::Float32ConstPtr msg)
@@ -1089,6 +1146,36 @@ void ros_connect::que_addquebtn()
 
     std::cout << "add func called" << std::endl;
 }
+
+void ros_connect::plainTextEditcb(const std_msgs::StringConstPtr &msg)
+    {
+        //std::cout << msg->data << std::endl;
+        std::string rcv_msg;
+        rcv_msg = msg->data;
+        std::string word;
+        std::vector<std::string> words;
+        for (auto x : rcv_msg)
+        {
+            if (x == ' ')
+            {
+                words.push_back(word);
+                word.erase();
+            }
+            else
+                word = word + x;
+        }
+        words.push_back(word);
+        
+        if (words[0] == "Lock")
+        {
+            int num = elng[atoi(words[1].c_str())];
+            safetylabels[num]->setProperty("color", "red");
+                    //setStyleSheet("QLabel { background-color : red ; color : white; }");
+        }
+
+        //ui_.plainTextEdit->appendPlainText(QString::fromStdString(msg->data));
+        
+    }
 
 // void ros_connect::slidervelcommand(float slider_val_1, float slider_val_2, float slider_val_3, float slider_val_4)
 // {

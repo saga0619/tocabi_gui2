@@ -61,8 +61,9 @@
   <build_depend>mujoco_ros_msgs</build_depend>
   <build_export_depend>mujoco_ros_msgs</build_export_depend>
   <exec_depend>mujoco_ros_msgs</exec_depend>
-
-
+  <build_depend>tocabi_controller</build_depend>
+  <exec_depend>tocabi_controller</exec_depend>
+	
   <!-- The export tag contains other, unspecified, tags -->
   <export>
     <!-- Other tools can request additional information be placed here -->

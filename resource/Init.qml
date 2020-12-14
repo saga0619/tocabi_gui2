@@ -90,7 +90,7 @@ Page {
             highlighted: false
             checked: false
             font.pointSize: 16
-            onClicked: ros.button_ros(0, "imureset")
+            onClicked: ros.button_ros(0, "ftcalib")
         }
 
         Button {
