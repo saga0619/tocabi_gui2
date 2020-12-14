@@ -23,7 +23,6 @@
 #include <ros/macros.h>
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
-#include <mujoco_ros_msgs/SensorState.h>
 #include <geometry_msgs/Point.h>
 #include <geometry_msgs/Point32.h>
 #include <geometry_msgs/PointStamped.h>
