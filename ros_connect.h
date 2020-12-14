@@ -107,14 +107,11 @@ public:
 ///////////////////////////////////////////////////////////////////////////////////////////////
     
     void VirtualInitHandle();
-    void Torqueon();
-    void Torqueoff();
-    void EmergencyOff();
     void VelocityHandle(const sensor_msgs::Joy::ConstPtr& msg);
     void VelHandle_android(const geometry_msgs::Twist::ConstPtr &msg);
     void ChangeConMode(int data);
     void handletaskmsg();
-
+    void plainTextEditcb(const std_msgs::StringConstPtr &msg);
 //    void pushed_msg(const std_msgs::Bool &msg);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -150,6 +147,8 @@ public:
     int RTFlag = 0;
 
     std::vector<QLabel *> ecatlabels;
+    std::vector<QObject *> safetylabels;
+
 
 
     std::vector<task_que> tq_;
