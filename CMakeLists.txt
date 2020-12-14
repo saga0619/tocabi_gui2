@@ -18,7 +18,6 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
   geometry_msgs
-  mujoco_ros_msgs  
   sensor_msgs
   tocabi_controller
 )

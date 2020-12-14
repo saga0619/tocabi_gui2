@@ -158,7 +158,7 @@ void ros_connect::init_ros()
 void ros_connect::shutdown()
 {
     pclose(fp);
-    system("shutdown -P now");
+    system("sudo shutdown -P now");
 }
 
 void ros_connect::click_ros(QString msg)
