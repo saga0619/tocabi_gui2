@@ -8,5 +8,6 @@
         <file>NewTab.qml</file>
         <file>NumberPad.qml</file>
         <file>Init.qml</file>
+        <file>Status_task.qml</file>
     </qresource>
 </RCC>

@@ -276,10 +276,6 @@ void ros_connect::update()
         }
     }
 }
-double ros_connect::t_x()
-{
-    return tt;
-}
 void ros_connect::modeChange()
 {
     torque++;

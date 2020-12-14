@@ -88,7 +88,7 @@ public:
     Q_INVOKABLE void shutdown();
 
     Q_INVOKABLE void update();
-    Q_INVOKABLE double t_x();
+    
     Q_INVOKABLE int tt;
     Q_INVOKABLE QString a;
     Q_INVOKABLE double target_;
