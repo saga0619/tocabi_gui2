@@ -39,6 +39,9 @@ ApplicationWindow {
         Status {
         }
 
+        Status_task {
+        }
+
         Command{
         }
 
@@ -62,7 +65,11 @@ ApplicationWindow {
         }
 
         TabButton {
-            text: qsTr("Status")
+            text: qsTr("Status J")
+        }
+
+        TabButton {
+            text: qsTr("Status T")
         }
 
         TabButton {

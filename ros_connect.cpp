@@ -90,6 +90,7 @@ void ros_connect::init_ros()
 
     m_Q->findChild<QObject *>("ros_button")->setProperty("text", "ROS CONNECTED");
 
+
     QString str = m_Q->findChild<QObject *>("textarea_")->property("text").toString();
     str.append("\nrosconnect success");
     m_Q->findChild<QObject *>("textarea_")->setProperty("text", str);
@@ -285,10 +286,6 @@ void ros_connect::update()
         }
     }
 }
-double ros_connect::t_x()
-{
-    return tt;
-}
 void ros_connect::modeChange()
 {
     torque++;
@@ -328,6 +325,8 @@ void ros_connect::joint_cb(sensor_msgs::JointStateConstPtr msg)
     float j_data;
     float limit, data_prg, data_txt;
 
+
+    std::cout<<"hello"<<std::endl;
     for (int i = 0; i < 33; i++)
     {
 
@@ -357,19 +356,29 @@ void ros_connect::joint_cb(sensor_msgs::JointStateConstPtr msg)
         color_tocabi[i] = (int)(abs(j_data) / limit * 256);
         prg_tocabi[i] = data_prg;
     }
-
+    
     // Left Arm
     for (int i = 15; i < 23; i++)
     {
+    std::cout<<i<<"hello"<<std::endl;
         std::sprintf(buf, "%8.3f", num_tocabi[i]);
+    std::cout<<i<<"hello"<<std::endl;
         std::sprintf(buf2, "t%d", i + 9);
+    std::cout<<i<<"hello"<<std::endl;
         m_Q->findChild<QObject *>(buf2)->setProperty("text", buf);
+    std::cout<<i<<"hello"<<std::endl;
         std::sprintf(buf, "#%02X0000", color_tocabi[i]);
+    std::cout<<i<<"hello"<<std::endl;
         m_Q->findChild<QObject *>(buf2)->setProperty("color", buf);
+    std::cout<<i<<"hello"<<std::endl;
         std::sprintf(buf2, "p%d", i + 9);
+    std::cout<<i<<"hello"<<std::endl;
         m_Q->findChild<QObject *>(buf2)->setProperty("value", prg_tocabi[i]);
+    std::cout<<i<<"hello"<<std::endl;
+
     }
 
+    std::cout<<"hello"<<std::endl;
     // Right Arm
     for (int i = 25; i < 33; i++)
     {
@@ -383,6 +392,7 @@ void ros_connect::joint_cb(sensor_msgs::JointStateConstPtr msg)
         std::sprintf(buf2, "p%d", i - 9);
         m_Q->findChild<QObject *>(buf2)->setProperty("value", prg_tocabi[i]);
     }
+    std::cout<<"hello"<<std::endl;
 
     // Left Leg
     for (int i = 0; i < 6; i++)
@@ -397,6 +407,7 @@ void ros_connect::joint_cb(sensor_msgs::JointStateConstPtr msg)
         std::sprintf(buf2, "p%d", i + 7);
         m_Q->findChild<QObject *>(buf2)->setProperty("value", prg_tocabi[i]);
     }
+    std::cout<<"hello"<<std::endl;
 
     // Right Leg
     for (int i = 6; i < 12; i++)
@@ -411,6 +422,7 @@ void ros_connect::joint_cb(sensor_msgs::JointStateConstPtr msg)
         std::sprintf(buf2, "p%d", i - 5);
         m_Q->findChild<QObject *>(buf2)->setProperty("value", prg_tocabi[i]);
     }
+    std::cout<<"hello"<<std::endl;
 
     // Waist + Upper body
     for (int i = 12; i < 15; i++)
@@ -475,6 +487,7 @@ void ros_connect::joint_cb(sensor_msgs::JointStateConstPtr msg)
     // m_Q->findChild<QObject *>("waist_safety1")->setProperty("color", "#8AE234");
 
 
+    std::cout<<"hello"<<std::endl;
 }
 
 void ros_connect::time_cb(std_msgs::Float32ConstPtr msg)

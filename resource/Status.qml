@@ -478,7 +478,7 @@ Page {
             x: 20
             y: 20
             width: 180
-            objectName: "p29"
+            objectName: "p25"
             value: 0.5
         }
 
