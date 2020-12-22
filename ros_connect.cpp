@@ -42,6 +42,7 @@ float NM2CNT[33] = {
     95.0,
     95.0,
 };
+
 ros_connect::ros_connect(QObject *parent, int argc, char **argv) : QObject(parent)
 {
     m_Q = parent;
@@ -103,54 +104,6 @@ void ros_connect::init_ros()
     }
     m_Q->findChild<QObject *>("swipeView")->setProperty("enabled", true);
 
-
-    safetylabels.resize(33);
-
-    //head
-        for (int i = 0; i < 2; i++)
-        {
-            safetylabels[i] = new QObject( m_Q->findChild<QObject *>("head_safety") );
-        }
-
-//        for (int i = 2; i < 10; i++)
-//        {
-//            safetylabels[i] = new QLabel(ui_.leftarm_safety->parentWidget());
-//            ui_.leftarm_safety->addWidget(safetylabels[i]);
-//            safetylabels[i]->setFrameShape(QFrame::Panel);
-//        }
-
-//        for (int i = 10; i < 18; i++)
-//        {
-//            safetylabels[i] = new QLabel(ui_.rightarm_safety->parentWidget());
-//            ui_.rightarm_safety->addWidget(safetylabels[i]);
-//            safetylabels[i]->setFrameShape(QFrame::Panel);
-//        }
-
-//        for (int i = 18; i < 21; i++)
-//        {
-//            safetylabels[i] = new QLabel(ui_.waist_safety->parentWidget());
-//            ui_.waist_safety->addWidget(safetylabels[i]);
-//            safetylabels[i]->setFrameShape(QFrame::Panel);
-//        }
-
-//        for (int i = 21; i < 27; i++)
-//        {
-//            safetylabels[i] = new QLabel(ui_.leftleg_safety->parentWidget());
-//            ui_.leftleg_safety->addWidget(safetylabels[i]);
-//            safetylabels[i]->setFrameShape(QFrame::Panel);
-//        }
-
-//        for (int i = 27; i < 33; i++)
-//        {
-//            safetylabels[i] = new QLabel(ui_.rightleg_safety->parentWidget());
-//            ui_.rightleg_safety->addWidget(safetylabels[i]);
-//            safetylabels[i]->setFrameShape(QFrame::Panel);
-//        }
-
-        for (int i = 0; i < 2; i++)
-        {
-            safetylabels[i]->setProperty("color",  "rgb(138, 226, 52)" );
-        }
 
 
 }
@@ -472,6 +425,55 @@ void ros_connect::joint_cb(sensor_msgs::JointStateConstPtr msg)
         std::sprintf(buf2, "p%d", i + 1);
         m_Q->findChild<QObject *>(buf2)->setProperty("value", prg_tocabi[i]);
     }
+    
+     //safetylabels.resize(33);
+
+    //head
+    //     for (int i = 0; i < 2; i++)
+    //     {
+    //         safetylabels[i] = new QObject( m_Q->findChild<QObject *>("head_safety") );
+    //     }
+
+    //    for (int i = 2; i < 10; i++)
+    //    {
+    //        safetylabels[i] = new QLabel(ui_.leftarm_safety->parentWidget());
+    //        ui_.leftarm_safety->addWidget(safetylabels[i]);
+    //        safetylabels[i]->setFrameShape(QFrame::Panel);
+    //    }
+
+    //    for (int i = 10; i < 18; i++)
+    //    {
+    //        safetylabels[i] = new QLabel(ui_.rightarm_safety->parentWidget());
+    //        ui_.rightarm_safety->addWidget(safetylabels[i]);
+    //        safetylabels[i]->setFrameShape(QFrame::Panel);
+    //   }
+
+//       for (int i = 18; i < 21; i++)
+//       {
+//           std::sprintf(buf,"waist_safety%d",i-17);
+//           safetylabels[i] = new QObject( m_Q->findChild<QObject *>(buf));
+//       }
+
+    //    for (int i = 21; i < 27; i++)
+    //    {
+    //        safetylabels[i] = new QLabel(ui_.leftleg_safety->parentWidget());
+    //        ui_.leftleg_safety->addWidget(safetylabels[i]);
+    //        safetylabels[i]->setFrameShape(QFrame::Panel);
+    //    }
+
+    //    for (int i = 27; i < 33; i++)
+    //    {
+    //        safetylabels[i] = new QLabel(ui_.rightleg_safety->parentWidget());
+    //        ui_.rightleg_safety->addWidget(safetylabels[i]);
+    //        safetylabels[i]->setFrameShape(QFrame::Panel);
+    //   }
+
+//        for (int i = 18; i < 21; i++)
+//        {
+//            safetylabels[i]->setProperty("color", "#8AE234");
+//        }
+    // m_Q->findChild<QObject *>("waist_safety1")->setProperty("color", "#8AE234");
+
 
 }
 

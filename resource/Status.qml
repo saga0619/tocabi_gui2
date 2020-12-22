@@ -947,6 +947,7 @@ Page {
             color: "#f61e1e"
             anchors.right: p29.left
             anchors.top: p29.top
+            objectName: "waist_safety1"
         }
         Rectangle {
             width: 20
@@ -954,13 +955,17 @@ Page {
             color: "#f61e1e"
             anchors.right: p30.left
             anchors.top: p30.top
+            objectName: "waist_safety2"
+
         }
         Rectangle {
             width: 20
             height: 6
-            color: "#f61e1e"
+            color:  "#8AE234"
             anchors.right: p31.left
             anchors.top: p31.top
+            objectName: "waist_safety3"
+
         }
 
         Text {
@@ -1425,6 +1430,6 @@ Page {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:1.25}
+    D{i:0;formeditorZoom:0.75}
 }
 ##^##*/
