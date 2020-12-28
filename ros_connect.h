@@ -69,6 +69,9 @@ public:
     Q_INVOKABLE void joyconfig();
     Q_INVOKABLE void virjoy(float x, float y, int i);
     Q_INVOKABLE void button_ros(int id, QString msg);
+    Q_INVOKABLE void safetyresetbtncb();
+    Q_INVOKABLE void safety2btncb();
+
     Q_INVOKABLE void switch_ros(int id, char *msg);
     Q_INVOKABLE void tasksendcb();
     Q_INVOKABLE void walkinginitbtncb();
@@ -96,6 +99,7 @@ public:
     void gobottom();
 
     void joint_cb(sensor_msgs::JointStateConstPtr msg);
+    void label_cb(const std_msgs::StringConstPtr &msg_);
     void time_cb(std_msgs::Float32ConstPtr msg);
     void pos_cb(geometry_msgs::PolygonStampedConstPtr msg);
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -119,6 +123,7 @@ public:
 
     sensor_msgs::JointState state;
     ros::Subscriber joint_sub;
+    ros::Subscriber guilogsub;
     ros::Subscriber time_sub;
     ros::Subscriber pos_sub;
     ros::Publisher button_pub;
@@ -146,7 +151,7 @@ public:
     int RTFlag = 0;
 
     std::vector<QLabel *> ecatlabels;
-    std::vector<QObject *> safetylabels;
+    //std::vector<QObject *> safetylabels;
 
 
 

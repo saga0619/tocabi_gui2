@@ -71,6 +71,8 @@ void ros_connect::init_ros()
     ros::NodeHandle nh;
 
     joint_sub = nh.subscribe("/tocabi/jointstates", 1, &ros_connect::joint_cb, this);
+    guilogsub = nh.subscribe("/tocabi/guilog", 1000, &ros_connect::label_cb, this);
+
     time_sub = nh.subscribe("/tocabi/time", 1, &ros_connect::time_cb, this);
 
     pos_sub = nh.subscribe("/tocabi/point", 1, &ros_connect::pos_cb, this);
@@ -325,8 +327,6 @@ void ros_connect::joint_cb(sensor_msgs::JointStateConstPtr msg)
     float j_data;
     float limit, data_prg, data_txt;
 
-
-    std::cout<<"hello"<<std::endl;
     for (int i = 0; i < 33; i++)
     {
 
@@ -356,29 +356,35 @@ void ros_connect::joint_cb(sensor_msgs::JointStateConstPtr msg)
         color_tocabi[i] = (int)(abs(j_data) / limit * 256);
         prg_tocabi[i] = data_prg;
     }
+
+    //Head
+
+    for (int i = 23; i < 25; i++)
+    {
+        std::sprintf(buf, "%8.3f", num_tocabi[i]);
+        std::sprintf(buf2, "t%d", i + 28);
+        m_Q->findChild<QObject *>(buf2)->setProperty("text", buf);
+        std::sprintf(buf, "#%02X0000", color_tocabi[i]);
+        m_Q->findChild<QObject *>(buf2)->setProperty("color", buf);
+        std::sprintf(buf2, "p%d", i + 28);
+        m_Q->findChild<QObject *>(buf2)->setProperty("value", prg_tocabi[i]);
+    }
+
+    
     
     // Left Arm
     for (int i = 15; i < 23; i++)
     {
-    std::cout<<i<<"hello"<<std::endl;
         std::sprintf(buf, "%8.3f", num_tocabi[i]);
-    std::cout<<i<<"hello"<<std::endl;
         std::sprintf(buf2, "t%d", i + 9);
-    std::cout<<i<<"hello"<<std::endl;
         m_Q->findChild<QObject *>(buf2)->setProperty("text", buf);
-    std::cout<<i<<"hello"<<std::endl;
         std::sprintf(buf, "#%02X0000", color_tocabi[i]);
-    std::cout<<i<<"hello"<<std::endl;
         m_Q->findChild<QObject *>(buf2)->setProperty("color", buf);
-    std::cout<<i<<"hello"<<std::endl;
         std::sprintf(buf2, "p%d", i + 9);
-    std::cout<<i<<"hello"<<std::endl;
         m_Q->findChild<QObject *>(buf2)->setProperty("value", prg_tocabi[i]);
-    std::cout<<i<<"hello"<<std::endl;
 
     }
 
-    std::cout<<"hello"<<std::endl;
     // Right Arm
     for (int i = 25; i < 33; i++)
     {
@@ -392,7 +398,6 @@ void ros_connect::joint_cb(sensor_msgs::JointStateConstPtr msg)
         std::sprintf(buf2, "p%d", i - 9);
         m_Q->findChild<QObject *>(buf2)->setProperty("value", prg_tocabi[i]);
     }
-    std::cout<<"hello"<<std::endl;
 
     // Left Leg
     for (int i = 0; i < 6; i++)
@@ -407,7 +412,6 @@ void ros_connect::joint_cb(sensor_msgs::JointStateConstPtr msg)
         std::sprintf(buf2, "p%d", i + 7);
         m_Q->findChild<QObject *>(buf2)->setProperty("value", prg_tocabi[i]);
     }
-    std::cout<<"hello"<<std::endl;
 
     // Right Leg
     for (int i = 6; i < 12; i++)
@@ -422,7 +426,6 @@ void ros_connect::joint_cb(sensor_msgs::JointStateConstPtr msg)
         std::sprintf(buf2, "p%d", i - 5);
         m_Q->findChild<QObject *>(buf2)->setProperty("value", prg_tocabi[i]);
     }
-    std::cout<<"hello"<<std::endl;
 
     // Waist + Upper body
     for (int i = 12; i < 15; i++)
@@ -438,56 +441,56 @@ void ros_connect::joint_cb(sensor_msgs::JointStateConstPtr msg)
         m_Q->findChild<QObject *>(buf2)->setProperty("value", prg_tocabi[i]);
     }
     
-     //safetylabels.resize(33);
+// safety lables
+     
+    //head 0 1
+    //left arm 2 ~ 9
+    //right arm 10 ~ 17 
+    // waist 18 ~ 20 
+    //left leg 21 ~ 26
+    //right leg 27 ~ 32
 
-    //head
-    //     for (int i = 0; i < 2; i++)
-    //     {
-    //         safetylabels[i] = new QObject( m_Q->findChild<QObject *>("head_safety") );
-    //     }
+    for (int i = 0; i < 33; i++)
+    {
+        std::sprintf(buf,"safety%d",i);
+        m_Q->findChild<QObject *>(buf)->setProperty("color","#8AE234");
+    }
+}
 
-    //    for (int i = 2; i < 10; i++)
-    //    {
-    //        safetylabels[i] = new QLabel(ui_.leftarm_safety->parentWidget());
-    //        ui_.leftarm_safety->addWidget(safetylabels[i]);
-    //        safetylabels[i]->setFrameShape(QFrame::Panel);
-    //    }
+void ros_connect::label_cb(const std_msgs::StringConstPtr &msg)
+{
+        // Safety Lock
 
-    //    for (int i = 10; i < 18; i++)
-    //    {
-    //        safetylabels[i] = new QLabel(ui_.rightarm_safety->parentWidget());
-    //        ui_.rightarm_safety->addWidget(safetylabels[i]);
-    //        safetylabels[i]->setFrameShape(QFrame::Panel);
-    //   }
+        //std::cout << msg->data << std::endl;
+        std::string rcv_msg;
+        rcv_msg = msg->data;
+        std::string word;
+        std::vector<std::string> words;
+        for (auto x : rcv_msg)
+        {
+            if (x == ' ')
+            {
+                words.push_back(word);
+                word.erase();
+            }
+            else
+                word = word + x;
+        }
+        words.push_back(word);
+        
+        std::cout<< "lock_cb called" << std::endl;
 
-//       for (int i = 18; i < 21; i++)
-//       {
-//           std::sprintf(buf,"waist_safety%d",i-17);
-//           safetylabels[i] = new QObject( m_Q->findChild<QObject *>(buf));
-//       }
+        char buf[128];
+        if (words[0] == "Lock")
+        {
+            int num = elng[atoi(words[1].c_str())];
+            std::sprintf(buf,"safety%d",num);
+            m_Q->findChild<QObject *>(buf)->setProperty("color", "red");
+        }
 
-    //    for (int i = 21; i < 27; i++)
-    //    {
-    //        safetylabels[i] = new QLabel(ui_.leftleg_safety->parentWidget());
-    //        ui_.leftleg_safety->addWidget(safetylabels[i]);
-    //        safetylabels[i]->setFrameShape(QFrame::Panel);
-    //    }
+        //ui_.plainTextEdit->appendPlainText(QString::fromStdString(msg->data));
+        
 
-    //    for (int i = 27; i < 33; i++)
-    //    {
-    //        safetylabels[i] = new QLabel(ui_.rightleg_safety->parentWidget());
-    //        ui_.rightleg_safety->addWidget(safetylabels[i]);
-    //        safetylabels[i]->setFrameShape(QFrame::Panel);
-    //   }
-
-//        for (int i = 18; i < 21; i++)
-//        {
-//            safetylabels[i]->setProperty("color", "#8AE234");
-//        }
-    // m_Q->findChild<QObject *>("waist_safety1")->setProperty("color", "#8AE234");
-
-
-    std::cout<<"hello"<<std::endl;
 }
 
 void ros_connect::time_cb(std_msgs::Float32ConstPtr msg)
@@ -496,6 +499,33 @@ void ros_connect::time_cb(std_msgs::Float32ConstPtr msg)
     std::sprintf(buf, "%8.4f", msg->data);
     m_Q->findChild<QObject *>("time_text")->setProperty("text", buf);
 }
+
+void ros_connect::safetyresetbtncb()
+    {
+        char buf[128];
+        for (int i = 0; i < 33; i++)
+        {
+            std::sprintf(buf,"safety%d",i);
+            m_Q->findChild<QObject *>(buf)->setProperty("color","#8AE234");
+        }
+        
+        com_msg.data = std::string("safetyreset");
+        com_pub.publish(com_msg);
+    }
+
+void ros_connect::safety2btncb()
+    {
+        char buf[128];
+
+        for (int i = 0; i < 33; i++)
+        {
+            std::sprintf(buf,"safety%d",i);
+            m_Q->findChild<QObject *>(buf)->setProperty("color","yellow");    
+        }
+        com_msg.data = std::string("safetydisable");
+        com_pub.publish(com_msg);
+    }
+
 
 void ros_connect::pos_cb(geometry_msgs::PolygonStampedConstPtr msg)
 {
@@ -1166,35 +1196,6 @@ void ros_connect::que_addquebtn()
     std::cout << "add func called" << std::endl;
 }
 
-void ros_connect::plainTextEditcb(const std_msgs::StringConstPtr &msg)
-    {
-        //std::cout << msg->data << std::endl;
-        std::string rcv_msg;
-        rcv_msg = msg->data;
-        std::string word;
-        std::vector<std::string> words;
-        for (auto x : rcv_msg)
-        {
-            if (x == ' ')
-            {
-                words.push_back(word);
-                word.erase();
-            }
-            else
-                word = word + x;
-        }
-        words.push_back(word);
-        
-        if (words[0] == "Lock")
-        {
-            int num = elng[atoi(words[1].c_str())];
-            safetylabels[num]->setProperty("color", "red");
-                    //setStyleSheet("QLabel { background-color : red ; color : white; }");
-        }
-
-        //ui_.plainTextEdit->appendPlainText(QString::fromStdString(msg->data));
-        
-    }
 
 // void ros_connect::slidervelcommand(float slider_val_1, float slider_val_2, float slider_val_3, float slider_val_4)
 // {
