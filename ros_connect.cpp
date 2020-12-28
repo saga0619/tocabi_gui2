@@ -478,7 +478,7 @@ void ros_connect::label_cb(const std_msgs::StringConstPtr &msg)
         }
         words.push_back(word);
         
-        std::cout<< "lock_cb called" << std::endl;
+        std::cout<< "label_cb called" << std::endl;
 
         char buf[128];
         if (words[0] == "Lock")
