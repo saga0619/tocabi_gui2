@@ -12,7 +12,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
-find_package(Qt5 COMPONENTS Core Quick REQUIRED)
+find_package(Qt5 COMPONENTS Core Quick SerialPort REQUIRED)
 
 find_package(catkin REQUIRED COMPONENTS
   roscpp
@@ -41,9 +41,12 @@ add_executable(tocabi_qui
   ${RESOURCE_FILES}
 )
 
+
 target_compile_definitions(tocabi_qui
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
+
 target_link_libraries(tocabi_qui
-  PRIVATE Qt5::Core Qt5::Quick
+  PRIVATE Qt5::Core Qt5::Quick Qt5::SerialPort
   ${catkin_LIBRARIES}
 )
+

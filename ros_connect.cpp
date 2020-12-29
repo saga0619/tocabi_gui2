@@ -1,5 +1,5 @@
-
 #include "ros_connect.h"
+#include "ArduinoJson.h"
 
 #define min(x, y) (((x) < (y)) ? (x) : (y))
 #define max(x, y) (((x) > (y)) ? (x) : (y))
@@ -62,25 +62,77 @@ ros_connect::ros_connect(QObject *parent, int argc, char **argv) : QObject(paren
 }
 void ros_connect::init_ros()
 {
+
     ros::init(argc_, argv_, "tocabi_qui");
     ros::NodeHandle nh;
 
+    
     joint_sub = nh.subscribe("/tocabi/jointstates", 1, &ros_connect::joint_cb, this);
     time_sub = nh.subscribe("/tocabi/time", 1, &ros_connect::time_cb, this);
-
     pos_sub = nh.subscribe("/tocabi/point", 1, &ros_connect::pos_cb, this);
-
     joystick_sub = nh.subscribe("/controller/gui_command", 1, &ros_connect::joystick_cb, this);
 
     com_pub = nh.advertise<std_msgs::String>("/tocabi/command", 100);
     task_pub = nh.advertise<tocabi_controller::TaskCommand>("/tocabi/taskcommand", 100);
     task_que_pub = nh.advertise<tocabi_controller::TaskCommandQue>("/tocabi/taskquecommand", 100);
-
     velcommand_pub = nh.advertise<tocabi_controller::VelocityCommand>("/tocabi/velcommand", 100);
 
     android_pub = nh.advertise<tocabi_controller::TaskCommand>("/tocabi/taskcommand", 100);
     android_sub = nh.subscribe("/controller/android_command", 1, &ros_connect::android_cb, this);
 
+    ardu_sub = nh.subscribe("/ardu_msg", 1, &ros_connect::ardu_callback,this);      //subscribing arduino button
+    
+    ////////////////SERIAL COMMUNICATION INITAILIZATION//////////////////////
+    serial_port = open("/dev/ttyV0", O_RDWR | O_NOCTTY);
+    /* wait for the Arduino to reboot */
+    usleep(350);
+    struct termios toptions;
+    /* get current serial port settings */
+    tcgetattr(serial_port, &toptions);
+    /* set 9600 baud both ways */
+    cfsetispeed(&toptions, B9600);
+    cfsetospeed(&toptions, B9600);
+    /* 8 bits, no parity, no stop bits */
+    toptions.c_cflag &= ~PARENB;
+    toptions.c_cflag &= ~CSTOPB;
+    toptions.c_cflag &= ~CSIZE;
+    toptions.c_cflag |= CS8;
+    /* Canonical mode */
+    toptions.c_lflag |= ICANON;
+    /* commit the serial port settings */
+    tcsetattr(serial_port, TCSANOW, &toptions);
+    ////////////////////////////////////////////////////////////////////////////////
+
+    // while(ros::ok()){
+    //     DynamicJsonDocument doc(2048);
+
+    //     char serial_buf[200];  //400 bytes
+	//     serialport_read_until(serial_port, serial_buf, '}');
+    //     deserializeJson(doc, serial_buf);
+    //     JsonObject obj = doc.as<JsonObject>();
+    //     const char* controller = doc["controller"];
+    
+    //     int button = doc["button"];
+    //     int left_count = doc["left_count"];
+    //     int right_count = doc["right_count"];
+    //     int right_xValue = doc["right_xValue"];
+    //     int right_yValue = doc["right_yValue"];
+    //     int right_joy_swValue = doc["right_joy_swValue"];
+    //     int left_xValue = doc["left_xValue"];
+    //     int left_yValue = doc["left_yValue"];
+    //     int left_joy_swValue = doc["left_joy_swValue"];
+        
+    //     // printf("%d ", button);
+    //     // printf("%d ", left_count);
+    //     // printf("%d ", right_count);
+    //     // printf("%d ", right_xValue);
+    //     // printf("%d ", right_yValue);
+    //     // printf("%d ", right_joy_swValue);
+    //     // printf("%d ", left_xValue);
+    //     // printf("%d ", left_yValue);
+    //     // printf("%d \n", left_joy_swValue);
+
+    //     }
     ros_init = true;
 
     m_Q->findChild<QObject *>("ros_button")->setProperty("text", "ROS CONNECTED");
@@ -88,8 +140,8 @@ void ros_connect::init_ros()
     QString str = m_Q->findChild<QObject *>("textarea_")->property("text").toString();
     str.append("\nrosconnect success");
     m_Q->findChild<QObject *>("textarea_")->setProperty("text", str);
+    
     gobottom();
-
     //Enable tabs when called
     char buf[128];
     for (int i = 2; i < 6; i++)
@@ -98,6 +150,7 @@ void ros_connect::init_ros()
         m_Q->findChild<QObject *>(buf)->setProperty("enabled", true);
     }
     m_Q->findChild<QObject *>("swipeView")->setProperty("enabled", true);
+
 }
 
 void ros_connect::shutdown()
@@ -686,7 +739,7 @@ void ros_connect::joystick_cb(const sensor_msgs::Joy::Ptr &msg)
             ChangeConMode(1);
     }
     VelocityHandle(Rightmsg);
-};
+}
 
 void ros_connect::android_cb(const geometry_msgs::Twist::ConstPtr &msg)
 {
@@ -1152,3 +1205,58 @@ float ros_connect::pp(float val)
         return val / 150.0;
     }
 }
+// int ros_connect::serialport_read_until(int fd, char* serial_buf, char until)
+// {
+//     char b[1];
+//     int i=0;
+//     do { 
+//         int n = read(fd, b, 1);  // read a char at a time
+//         if( n==-1) return -1;    // couldn't read
+//         if( n==0 ) {
+//             usleep( 10 * 1000 ); // wait 10 msec try again
+//             continue;
+//         }
+//         serial_buf[i] = b[0]; i++;
+//     } while( b[0] != until );
+
+//     serial_buf[i] = 0;  // null terminate the string
+//     return 0;
+// }
+
+
+//void ros_connect::setLeftCount(int &value)
+
+void ros_connect::ardu_callback(const std_msgs::String::ConstPtr &msg){
+    
+    DynamicJsonDocument doc(1024 + 512);
+
+	deserializeJson(doc, msg->data);  //Json deserialize
+    JsonObject obj = doc.as<JsonObject>();
+
+    button = doc["button"];
+    left_count = doc["left_count"];
+    right_count = doc["right_count"];
+    right_xValue = doc["right_xValue"];
+    right_yValue = doc["right_yValue"]; 
+    right_joy_swValue = doc["right_joy_swValue"];
+    left_xValue = doc["left_xValue"];
+    left_yValue = doc["left_yValue"];
+    left_joy_swValue = doc["left_joy_swValue"];
+    
+    // printf("%d ", button);
+    // printf("%d ", left_count);
+    // printf("%d ", right_count);
+    // printf("%d ", right_xValue);
+    // printf("%d ", right_yValue);
+    // printf("%d ", right_joy_swValue);
+    // printf("%d ", left_xValue);
+    // printf("%d ", left_yValue);
+    // printf("%d \n", left_joy_swValue);
+    m_Q->findChild<QObject *>("numpadCount")->setProperty("left_count",left_count);
+    m_Q->findChild<QObject *>("numpadCount")->setProperty("right_count",right_count);
+    // setLeftCount(left_count);  
+    
+    //if(rotary) transfer_left_rotary();
+    //m_Q->findChild<QObject *>("testing")->setProperty("text", button);  //QML objectname : "four_digit", property is text  access
+}  
+ //void ros_connect::rotary_msg(const std_msgs::Int32::ConstPtr &msg){

@@ -5,6 +5,7 @@ import QtQuick.Dialogs 1.2
 import QtQml 2.2
 //import QtMultimedia 5.0
 
+
 ApplicationWindow {
     visible: true
     width: 1024
@@ -15,7 +16,7 @@ ApplicationWindow {
     //        id: swipeView2
     //        anchors.fill: parent
     //        currentIndex: tabBar.currentIndex
-    
+
 
     SwipeView{
         id: swipeView
