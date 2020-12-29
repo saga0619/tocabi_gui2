@@ -1,4 +1,1 @@
-
-```sh
-sudo apt-get install qml-module-qtquick*
-```
+## It was forked for serial communication and Qt development
