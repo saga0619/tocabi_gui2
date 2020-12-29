@@ -50,19 +50,40 @@
 
 import QtQuick 2.9
 import QtQuick.Controls 2.2
-Rectangle {
-    width: 350
-    height: 250
 
+
+Rectangle {
+    id: padChild
+
+    width: 350
+    height: 290
     border.color: "#000000"
     border.width: 2
-
 //    var curVal = 0
 //    var memory = 0
     property string lastOp: ""
 //    var previousOperator = ""
     property string digits: ""
-    property bool enteringDigits: false
+    property bool enteringDigits: false;    
+
+    property double rotary_precision: 3.00 + left_rotary_count*0.05;
+    property double value: 0;
+    property bool mode_flag: true;      //true is digit-input mode, false is rotary-input mode
+    
+
+    Connections {
+        target: numPadCount
+        onLeft_rotary_countChanged: mode_flag=false;
+        onRight_rotary_countChanged: mode_flag=false, rotaryInput();
+    }
+
+    function rotaryInput()
+    {
+        value = rotary_precision*right_rotary_count;
+        digits = value.toString()
+        pad.appendDigit(digits);
+        
+    }
 
     function digitPressed(op)
     {
@@ -80,7 +101,6 @@ Rectangle {
         }
         lastOp = op
     }
-
 
     function operatorPressed(op)
     {
@@ -154,8 +174,8 @@ Rectangle {
             digits = ""
         }
     }
-
-
+    
+    
     Grid {
         columns: 3
         columnSpacing: 5
@@ -163,36 +183,52 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.horizontalCenterOffset: 0
-        anchors.bottomMargin: 12
-
-
+        anchors.bottomMargin: 52
+        
         signal buttonPressed
-        y: 67
+        y: 63
 
-
-        Button { text: "7"; onClicked: digitPressed(text)}
-        Button { text: "8"; onClicked: digitPressed(text)}
-        Button { text: "9"; onClicked: digitPressed(text)}
-        Button { text: "4"; onClicked: digitPressed(text)}
-        Button { text: "5"; onClicked: digitPressed(text)}
-        Button { text: "6"; onClicked: digitPressed(text)}
-        Button { text: "1"; onClicked: digitPressed(text)}
-        Button { text: "2"; onClicked: digitPressed(text)}
-        Button { text: "3"; onClicked: digitPressed(text)}
-        Button { text: "0"; onClicked: digitPressed(text)}
-        Button { text: "."; onClicked: digitPressed(text)}
-        Button { text: "C"; onClicked: operatorPressed(text) }
+        Button { text: "7"; onClicked: digitPressed(text), mode_flag = true;}
+        Button { text: "8"; onClicked: digitPressed(text), mode_flag = true;}
+        Button { text: "9"; onClicked: digitPressed(text), mode_flag = true;}
+        Button { text: "4"; onClicked: digitPressed(text), mode_flag = true;}
+        Button { text: "5"; onClicked: digitPressed(text), mode_flag = true;}
+        Button { text: "6"; onClicked: digitPressed(text), mode_flag = true;}
+        Button { text: "1"; onClicked: digitPressed(text), mode_flag = true;}
+        Button { text: "2"; onClicked: digitPressed(text), mode_flag = true;}
+        Button { text: "3"; onClicked: digitPressed(text), mode_flag = true;}
+        Button { text: "0"; onClicked: digitPressed(text), mode_flag = true;}
+        Button { text: "."; onClicked: digitPressed(text), mode_flag = true;}
+        Button { text: "C"; onClicked: operatorPressed(text), mode_flag = true; }
     }
 
-    Button { x: 20; y: 17; text: "-"; onClicked: digitPressed(text)}
+    Button { x: 20; y: 17; text: "-"; onClicked: digitPressed(text), mode_flag = true;}
 
-    Button{ x: 126; y: 17; width: 204; height: 40;text: "X"; flat: false; highlighted: true; font.pointSize: 25; font.bold: true; onClicked: pad.visible = false}
+    Button{ x: 126; y: 17; width: 204; height: 40;text: "X"; flat: false; highlighted: true; font.pointSize: 25; font.bold: true; onClicked: pad.visible = false, mode_flag = true;}
 
+    Text{
+        id: element
+        x: 76
+        y: 249
+        width: 151
+        height: 27
+        text: qsTr("Precision VALUE : ")
+        font.pixelSize: 18
+    }
 
+    Text {      //Left Rotary Encoder For Precision
+        x: 212
+        y: 250
+        width: 74
+        height: 27
+        text: rotary_precision.toLocaleString(Qt.locale())
+        horizontalAlignment: Text.AlignHCenter
+        font.pixelSize: 18
+        objectName: "rotary_precision"
+    }
+    
+    
 }
-
-
-
 
 
 

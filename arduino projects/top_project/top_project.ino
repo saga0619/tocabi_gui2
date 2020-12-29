@@ -1,3 +1,5 @@
+#include "ArduinoJson.h"
+
 //button pin define
 #define button_pin0 0
 #define button_pin1 1
@@ -15,7 +17,7 @@
 //joystick pin define
 #define right_joyX A0
 #define right_joyY A1
-#define right_joy_sw 20 //20 means D20
+#define right_joy_sw 20 //20 means "D20"
 #define left_joyX A3
 #define left_joyY A4
 #define left_joy_sw 23
@@ -30,17 +32,21 @@ int total_reading;
 int right_count = 0; 
 int right_currentCLK;
 int right_previousCLK;
-int right_i = 0;
+bool right_i = false;
 int left_count = 0; 
 int left_currentCLK;
 int left_previousCLK;
-int left_i = 0;
+bool left_i = false;
 
 //joystick variable definition
 int right_xValue, right_yValue, right_joy_swValue;
 int left_xValue, left_yValue, left_joy_swValue;
 
 
+DynamicJsonDocument doc(1024+512);
+
+
+  
 void setup() {
   pinMode(button_pin0, INPUT);
   pinMode(button_pin1, INPUT);
@@ -64,11 +70,14 @@ void setup() {
   right_previousCLK = digitalRead(right_CLK);
   left_previousCLK = digitalRead(left_CLK);
   Serial.begin(9600);
+  //while (!Serial) continue;
+  
+
   
 }
  
 void loop() {
-
+  
   //button value read
   int reading0 = ! digitalRead(button_pin0);
   int reading1 = ! digitalRead(button_pin1);
@@ -88,34 +97,34 @@ void loop() {
   
   if (right_currentCLK != right_previousCLK){   //when rotary rolls left
     if (digitalRead(right_DT) != right_currentCLK) { 
-      if(!right_i) right_i ++;
+      if(!right_i) right_i = !right_i;
       else {
         right_count --;
-        right_i = 0;
+        right_i = false;
       }
     }
     else {                         //when rotary rolls right
-      if(!right_i) right_i ++;
+      if(!right_i) right_i = !right_i;
       else {
         right_count ++;
-        right_i = 0;
+        right_i = false;
       }
     }
     
   } 
   if (left_currentCLK != left_previousCLK){   //when rotary rolls left
     if (digitalRead(left_DT) != left_currentCLK) { 
-      if(!left_i) left_i ++;
+      if(!left_i) left_i = !left_i;
       else {
         left_count --;
-        left_i = 0;
+        left_i = false;
       }
     }
     else {                         //when rotary rolls right
-      if(!left_i) left_i ++;
+      if(!left_i) left_i = !left_i;
       else {
         left_count ++;
-        left_i = 0;
+        left_i = false;
       }
     }
     
@@ -130,33 +139,47 @@ void loop() {
   left_xValue = analogRead(left_joyX);
   left_yValue = analogRead(left_joyY);
   left_joy_swValue = digitalRead(left_joy_sw);
- 
+
+  doc["button"] = total_reading;
+  doc["left_count"] = left_count;
+  doc["right_count"] = right_count;
+  doc["right_xValue"] = right_xValue;
+  doc["right_yValue"] = right_yValue;
+  doc["right_joy_swValue"] = right_joy_swValue;
+  doc["left_xValue"] = left_xValue;
+  doc["left_yValue"] = left_yValue;
+  doc["left_joy_swValue"] = left_joy_swValue;
   
-  //button print
-  Serial.print(total_reading);
-  Serial.print("\t");
+  serializeJson(doc, Serial);
   
-  //rotary encoder print 
-  Serial.print(" left_count = ");
-  Serial.print(left_count);
-  Serial.print("\t");
-  Serial.print(" right_count = ");
-  Serial.print(right_count);
-  Serial.print("\t");
-        
-  //joystick print
-  Serial.print(right_xValue);
-  Serial.print("\t");
-  Serial.print(right_yValue);
-  Serial.print("\t");
-  Serial.print(right_joy_swValue);
-  Serial.print("\t");
+  Serial.println();
   
-  Serial.print("\t");
-  
-  Serial.print(left_xValue);
-  Serial.print("\t");
-  Serial.print(left_yValue);
-  Serial.print("\t");
-  Serial.println(left_joy_swValue);
+
+//  //button print
+//  Serial.print(total_reading);
+//  Serial.print("\t");
+//  
+//  //rotary encoder print 
+//  Serial.print(" left_count = ");
+//  Serial.print(left_count);
+//  Serial.print("\t");
+//  Serial.print(" right_count = ");
+//  Serial.print(right_count);
+//  Serial.print("\t");
+//        
+//  //joystick print
+//  Serial.print(right_xValue);
+//  Serial.print("\t");
+//  Serial.print(right_yValue);
+//  Serial.print("\t");
+//  Serial.print(right_joy_swValue);
+//  Serial.print("\t");
+//  
+//  Serial.print("\t");
+//  
+//  Serial.print(left_xValue);
+//  Serial.print("\t");
+//  Serial.print(left_yValue);
+//  Serial.print("\t");
+//  Serial.println(left_joy_swValue);
 }

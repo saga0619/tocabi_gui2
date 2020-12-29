@@ -1,11 +1,32 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
 
+
 Page {
+    id: numPadCount
+    objectName: "numpadCount"
     width: 1024
     height: 600
 
+    property int left_rotary_count: (present_left_count - initial_left_count);
+    property int left_count: 0;     //from ros_connect.cpp
+    property int initial_left_count: 0;
+    property int present_left_count:left_count;
 
+    property int right_rotary_count: (present_right_count - initial_right_count);
+    property int right_count: 0;    //from ros_connect.cpp
+    property int initial_right_count: 0;
+    property int present_right_count:right_count;
+
+    function rotary_init()
+    {
+        console.log("rotary_initialized : ");
+        left_rotary_count : 0;
+        initial_left_count = left_count;
+        right_rotary_count : 0;
+        initial_right_count = right_count;
+    }
+    
     Frame {
         id: frame1
         width: 799
@@ -116,6 +137,7 @@ Page {
                     if(pad.visible == false) {
                         pad.visible = true
                         numPad.digits = ""
+                        rotary_init();
                     }
                     else pad.visible = false
                     pad.target_ = "l_x"
@@ -133,6 +155,7 @@ Page {
                     if(pad.visible == false) {
                         pad.visible = true
                         numPad.digits = ""
+                        rotary_init();
                     }
                     else pad.visible = false
                     pad.target_ = "l_y"
@@ -150,6 +173,7 @@ Page {
                     if(pad.visible == false) {
                         pad.visible = true
                         numPad.digits = ""
+                        rotary_init();
                     }
                     else pad.visible = false
                     pad.target_ = "l_z"
@@ -167,6 +191,7 @@ Page {
                     if(pad.visible == false) {
                         pad.visible = true
                         numPad.digits = ""
+                        rotary_init();
                     }
                     else pad.visible = false
                     pad.target_ = "l_roll"
@@ -183,6 +208,7 @@ Page {
                     if(pad.visible == false) {
                         pad.visible = true
                         numPad.digits = ""
+                        rotary_init();
                     }
                     else pad.visible = false
                     pad.target_ = "l_pitch"
@@ -199,6 +225,7 @@ Page {
                     if(pad.visible == false) {
                         pad.visible = true
                         numPad.digits = ""
+                        rotary_init();
                     }
                     else pad.visible = false
                     pad.target_ = "l_yaw"
@@ -285,6 +312,7 @@ Page {
                     if(pad.visible == false) {
                         pad.visible = true
                         numPad.digits = ""
+                        rotary_init();
                     }
                     else pad.visible = false
                     pad.target_ = "r_x"
@@ -303,6 +331,7 @@ Page {
                     if(pad.visible == false) {
                         pad.visible = true
                         numPad.digits = ""
+                        rotary_init();
                     }
                     else pad.visible = false
                     pad.target_ = "r_y"
@@ -320,6 +349,7 @@ Page {
                     if(pad.visible == false) {
                         pad.visible = true
                         numPad.digits = ""
+                        rotary_init();
                     }
                     else pad.visible = false
                     pad.target_ = "r_z"
@@ -336,6 +366,7 @@ Page {
                     if(pad.visible == false) {
                         pad.visible = true
                         numPad.digits = ""
+                        rotary_init();
                     }
                     else pad.visible = false
                     pad.target_ = "r_roll"
@@ -352,6 +383,7 @@ Page {
                     if(pad.visible == false) {
                         pad.visible = true
                         numPad.digits = ""
+                        rotary_init();
                     }
                     else pad.visible = false
                     pad.target_ = "r_pitch"
@@ -368,6 +400,7 @@ Page {
                     if(pad.visible == false) {
                         pad.visible = true
                         numPad.digits = ""
+                        rotary_init();
                     }
                     else pad.visible = false
                     pad.target_ = "r_yaw"
@@ -454,6 +487,7 @@ Page {
                         if(pad.visible == false) {
                             pad.visible = true
                             numPad.digits = ""
+                        rotary_init();
                         }
                         else pad.visible = false
 
@@ -472,6 +506,7 @@ Page {
                         if(pad.visible == false) {
                             pad.visible = true
                             numPad.digits = ""
+                        rotary_init();
                         }
                         else pad.visible = false
                         pad.target_ = "com_height"
@@ -488,6 +523,7 @@ Page {
                         if(pad.visible == false) {
                             pad.visible = true
                             numPad.digits = ""
+                        rotary_init();
                         }
                         else pad.visible = false
                         pad.target_ = "pelv_pitch"
@@ -504,6 +540,7 @@ Page {
                         if(pad.visible == false) {
                             pad.visible = true
                             numPad.digits = ""
+                        rotary_init();
                         }
                         else pad.visible = false
                         pad.target_ = "com_roll"
@@ -520,6 +557,7 @@ Page {
                         if(pad.visible == false) {
                             pad.visible = true
                             numPad.digits = ""
+                        rotary_init();
                         }
                         else pad.visible = false
                         pad.target_ = "com_pitch"
@@ -536,6 +574,7 @@ Page {
                         if(pad.visible == false) {
                             pad.visible = true
                             numPad.digits = ""
+                        rotary_init();
                         }
                         else pad.visible = false
                         pad.target_ = "com_yaw"
@@ -661,6 +700,7 @@ Page {
                             if(pad.visible == false) {
                                 pad.visible = true
                                 numPad.digits = ""
+                        rotary_init();
                             }
                             else pad.visible = false
                             pad.target_ = "pospgain"
@@ -677,6 +717,7 @@ Page {
                             if(pad.visible == false) {
                                 pad.visible = true
                                 numPad.digits = ""
+                        rotary_init();
                             }
                             else pad.visible = false
                             pad.target_ = "posdgain"
@@ -693,6 +734,7 @@ Page {
                             if(pad.visible == false) {
                                 pad.visible = true
                                 numPad.digits = ""
+                                rotary_init();
                             }
                             else pad.visible = false
                             pad.target_ = "angpgain"
@@ -709,6 +751,7 @@ Page {
                             if(pad.visible == false) {
                                 pad.visible = true
                                 numPad.digits = ""
+                                 rotary_init();
                             }
                             else pad.visible = false
                             pad.target_ = "angdgain"
@@ -725,6 +768,7 @@ Page {
                             if(pad.visible == false) {
                                 pad.visible = true
                                 numPad.digits = ""
+                        rotary_init();
                             }
                             else pad.visible = false
                             pad.target_ = "accgain"
@@ -897,6 +941,7 @@ Page {
                         if(pad.visible == false) {
                             pad.visible = true
                             numPad.digits = ""
+                        rotary_init();
                         }
                         else pad.visible = false
                         pad.target_ = "traj_time"
@@ -998,6 +1043,9 @@ Page {
         width: 610
         height: 130
 
+
+        
+
         Text {
             anchors.left: parent.left
             anchors.top: parent.top
@@ -1068,6 +1116,7 @@ Page {
                         if(pad.visible == false) {
                             pad.visible = true
                             numPad.digits = ""
+                        rotary_init();
                         }
                         else pad.visible = false
                         pad.target_ = "walking_x"
@@ -1084,6 +1133,7 @@ Page {
                         if(pad.visible == false) {
                             pad.visible = true
                             numPad.digits = ""
+                        rotary_init();
                         }
                         else pad.visible = false
                         pad.target_ = "walking_y"
@@ -1100,6 +1150,7 @@ Page {
                         if(pad.visible == false) {
                             pad.visible = true
                             numPad.digits = ""
+                        rotary_init();
                         }
                         else pad.visible = false
                         pad.target_ = "walking_z"
@@ -1116,6 +1167,7 @@ Page {
                         if(pad.visible == false) {
                             pad.visible = true
                             numPad.digits = ""
+                        rotary_init();
                         }
                         else pad.visible = false
                         pad.target_ = "walking_height"
@@ -1132,6 +1184,7 @@ Page {
                         if(pad.visible == false) {
                             pad.visible = true
                             numPad.digits = ""
+                        rotary_init();
                         }
                         else pad.visible = false
                         pad.target_ = "walking_theta"
@@ -1184,6 +1237,7 @@ Page {
                         if(pad.visible == false) {
                             pad.visible = true
                             numPad.digits = ""
+                        rotary_init();
                         }
                         else pad.visible = false
                         pad.target_ = "walking_steplengthx"
@@ -1200,6 +1254,7 @@ Page {
                         if(pad.visible == false) {
                             pad.visible = true
                             numPad.digits = ""
+                        rotary_init();
                         }
                         else pad.visible = false
                         pad.target_ = "walking_steplengthy"

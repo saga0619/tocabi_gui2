@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <iostream>
+#include <stdio.h>
 
 #include <QObject>
 #include <QString>
@@ -16,7 +17,7 @@
 #include <std_msgs/Float32.h>
 #include <std_msgs/Float32MultiArray.h>
 #include <std_msgs/Int32MultiArray.h>
-#include <std_msgs/String.h>
+#include <std_msgs/Int32.h>
 #include <sensor_msgs/JointState.h>
 #include <sensor_msgs/Imu.h>
 #include <ros/macros.h>
@@ -28,6 +29,18 @@
 #include <geometry_msgs/PointStamped.h>
 #include <geometry_msgs/PolygonStamped.h>
 #include <math.h>
+
+#include <QtSerialPort/QSerialPort>
+
+#include <string.h>
+#include <unistd.h>
+#include <stdint.h>
+#include <fcntl.h>
+#include <termios.h>
+#include <errno.h>
+#include <sys/ioctl.h>
+#include <string>
+
 
 #include "tocabi_controller/TaskCommand.h"
 #include "tocabi_controller/TaskCommandQue.h"
@@ -48,6 +61,7 @@ class ros_connect : public QObject
 {
     Q_OBJECT
 public:
+    
     explicit ros_connect(QObject *parent, int argc, char** argv);
     int argc_;
     char** argv_;
@@ -55,11 +69,11 @@ public:
     FILE *fp;
     int p_state;
     int fd;
+    int serial_port;
 
     char buff[256];
 
     int torque = 0;
-
 
     Q_INVOKABLE void init_ros();
 
@@ -93,18 +107,27 @@ public:
     Q_INVOKABLE QString a;
     Q_INVOKABLE double target_;
 
+    int button = 0;
+    int left_count = 0;
+    int right_count = 0;
+    int right_xValue = 0;
+    int right_yValue = 0;
+    int right_joy_swValue = 0;
+    int left_xValue = 0;
+    int left_yValue = 0;
+    int left_joy_swValue = 0;
+
     void gobottom();
 
     void joint_cb(sensor_msgs::JointStateConstPtr msg);
     void time_cb(std_msgs::Float32ConstPtr msg);
     void pos_cb(geometry_msgs::PolygonStampedConstPtr msg);
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
     void joystick_cb(const sensor_msgs::Joy::Ptr &msg);
     void android_cb(const geometry_msgs::Twist::ConstPtr &msg);
 
-///////////////////////////////////////////////////////////////////////////////////////////////
-    
     void VirtualInitHandle();
     void Torqueon();
     void Torqueoff();
@@ -113,15 +136,15 @@ public:
     void VelHandle_android(const geometry_msgs::Twist::ConstPtr &msg);
     void ChangeConMode(int data);
 
-
-
     void handletaskmsg();
 
-//    void pushed_msg(const std_msgs::Bool &msg);
+    
+    
+
+    void ardu_callback(const std_msgs::String::ConstPtr &msg);
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
     sensor_msgs::JointState state;
     ros::Subscriber joint_sub;
@@ -129,12 +152,9 @@ public:
     ros::Subscriber pos_sub;
     ros::Publisher button_pub;
     ros::Publisher switch_pub;
-
-
     ros::Subscriber joystick_sub;
     ros::Publisher com_pub;
     std_msgs::String com_msg;
-
     ros::Publisher task_pub;
     tocabi_controller::TaskCommand task_msg;
 
@@ -146,7 +166,11 @@ public:
 
     ros::Publisher android_pub;
     ros::Subscriber android_sub;
+
+    //arduino
+    std_msgs::String ardu_msg;
     ros::Subscriber ardu_sub;
+
     int JoyFlag = 0;
     int LTFlag = 0;
     int RTFlag = 0;
@@ -157,14 +181,20 @@ public:
 
     float pp(float val);
 
+
+
 protected:
     QObject *m_Q;
     int mode_index = 0;
     uint32_t change_mode[4] = {0, 1, 2, 3};
 
 signals:
+   
 
 public slots:
+   
 };
 
 #endif // ROS_CONNECT_H
+
+
