@@ -77,12 +77,11 @@ Rectangle {
         onRight_rotary_countChanged: mode_flag=false, rotaryInput();
     }
 
-    function rotaryInput()
-    {
+    function rotaryInput()      
+    {       //이 함수에서 lagging이 많이 발생하는 것같습니다.
         value = rotary_precision*right_rotary_count;
-        digits = value.toString()
+        digits = value.toString()   
         pad.appendDigit(digits);
-        
     }
 
     function digitPressed(op)
