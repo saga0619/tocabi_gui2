@@ -83,7 +83,7 @@ void ros_connect::init_ros()
     ardu_sub = nh.subscribe("/ardu_msg", 1, &ros_connect::ardu_callback,this);      //subscribing arduino button
     
     ////////////////SERIAL COMMUNICATION INITAILIZATION//////////////////////
-    serial_port = open("/dev/ttyV0", O_RDWR | O_NOCTTY);
+    serial_port = open("/dev/ttyACM0", O_RDWR | O_NOCTTY);
     /* wait for the Arduino to reboot */
     usleep(350);
     struct termios toptions;
@@ -1243,15 +1243,15 @@ void ros_connect::ardu_callback(const std_msgs::String::ConstPtr &msg){
     left_yValue = doc["left_yValue"];
     left_joy_swValue = doc["left_joy_swValue"];
     
-    // printf("%d ", button);
-    // printf("%d ", left_count);
-    // printf("%d ", right_count);
-    // printf("%d ", right_xValue);
-    // printf("%d ", right_yValue);
-    // printf("%d ", right_joy_swValue);
-    // printf("%d ", left_xValue);
-    // printf("%d ", left_yValue);
-    // printf("%d \n", left_joy_swValue);
+    printf("%d ", button);
+    printf("%d ", left_count);
+    printf("%d ", right_count);
+    printf("%d ", right_xValue);
+    printf("%d ", right_yValue);
+    printf("%d ", right_joy_swValue);
+    printf("%d ", left_xValue);
+    printf("%d ", left_yValue);
+    printf("%d \n", left_joy_swValue);
     m_Q->findChild<QObject *>("numpadCount")->setProperty("left_count",left_count);
     m_Q->findChild<QObject *>("numpadCount")->setProperty("right_count",right_count);
     // setLeftCount(left_count);  

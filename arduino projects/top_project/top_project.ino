@@ -1,5 +1,5 @@
 #include "ArduinoJson.h"
-
+//12.31
 //button pin define
 #define button_pin0 0
 #define button_pin1 1
@@ -32,11 +32,11 @@ int total_reading;
 int right_count = 0; 
 int right_currentCLK;
 int right_previousCLK;
-bool right_i = false;
+int right_i = 0;
 int left_count = 0; 
 int left_currentCLK;
 int left_previousCLK;
-bool left_i = false;
+int left_i = 0;
 
 //joystick variable definition
 int right_xValue, right_yValue, right_joy_swValue;
@@ -97,34 +97,34 @@ void loop() {
   
   if (right_currentCLK != right_previousCLK){   //when rotary rolls left
     if (digitalRead(right_DT) != right_currentCLK) { 
-      if(!right_i) right_i = !right_i;
+      if(right_i%2 == 0) right_i++;
       else {
         right_count --;
-        right_i = false;
+        right_i++;
       }
     }
     else {                         //when rotary rolls right
-      if(!right_i) right_i = !right_i;
+      if(right_i%2 == 0) right_i++;
       else {
         right_count ++;
-        right_i = false;
+        right_i++;
       }
     }
     
   } 
   if (left_currentCLK != left_previousCLK){   //when rotary rolls left
     if (digitalRead(left_DT) != left_currentCLK) { 
-      if(!left_i) left_i = !left_i;
+      if(left_i%2 == 0) left_i++;
       else {
         left_count --;
-        left_i = false;
+        left_i++;
       }
     }
     else {                         //when rotary rolls right
-      if(!left_i) left_i = !left_i;
+      if(left_i%2 == 0) left_i++;
       else {
         left_count ++;
-        left_i = false;
+        left_i++;
       }
     }
     
