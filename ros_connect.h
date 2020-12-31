@@ -138,8 +138,6 @@ public:
 
     void handletaskmsg();
 
-    
-    
 
     void ardu_callback(const std_msgs::String::ConstPtr &msg);
 
@@ -187,9 +185,6 @@ protected:
     QObject *m_Q;
     int mode_index = 0;
     uint32_t change_mode[4] = {0, 1, 2, 3};
-
-signals:
-   
 
 public slots:
    

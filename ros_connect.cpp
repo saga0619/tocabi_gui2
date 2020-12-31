@@ -103,36 +103,6 @@ void ros_connect::init_ros()
     tcsetattr(serial_port, TCSANOW, &toptions);
     ////////////////////////////////////////////////////////////////////////////////
 
-    // while(ros::ok()){
-    //     DynamicJsonDocument doc(2048);
-
-    //     char serial_buf[200];  //400 bytes
-	//     serialport_read_until(serial_port, serial_buf, '}');
-    //     deserializeJson(doc, serial_buf);
-    //     JsonObject obj = doc.as<JsonObject>();
-    //     const char* controller = doc["controller"];
-    
-    //     int button = doc["button"];
-    //     int left_count = doc["left_count"];
-    //     int right_count = doc["right_count"];
-    //     int right_xValue = doc["right_xValue"];
-    //     int right_yValue = doc["right_yValue"];
-    //     int right_joy_swValue = doc["right_joy_swValue"];
-    //     int left_xValue = doc["left_xValue"];
-    //     int left_yValue = doc["left_yValue"];
-    //     int left_joy_swValue = doc["left_joy_swValue"];
-        
-    //     // printf("%d ", button);
-    //     // printf("%d ", left_count);
-    //     // printf("%d ", right_count);
-    //     // printf("%d ", right_xValue);
-    //     // printf("%d ", right_yValue);
-    //     // printf("%d ", right_joy_swValue);
-    //     // printf("%d ", left_xValue);
-    //     // printf("%d ", left_yValue);
-    //     // printf("%d \n", left_joy_swValue);
-
-    //     }
     ros_init = true;
 
     m_Q->findChild<QObject *>("ros_button")->setProperty("text", "ROS CONNECTED");
@@ -1205,26 +1175,6 @@ float ros_connect::pp(float val)
         return val / 150.0;
     }
 }
-// int ros_connect::serialport_read_until(int fd, char* serial_buf, char until)
-// {
-//     char b[1];
-//     int i=0;
-//     do { 
-//         int n = read(fd, b, 1);  // read a char at a time
-//         if( n==-1) return -1;    // couldn't read
-//         if( n==0 ) {
-//             usleep( 10 * 1000 ); // wait 10 msec try again
-//             continue;
-//         }
-//         serial_buf[i] = b[0]; i++;
-//     } while( b[0] != until );
-
-//     serial_buf[i] = 0;  // null terminate the string
-//     return 0;
-// }
-
-
-//void ros_connect::setLeftCount(int &value)
 
 void ros_connect::ardu_callback(const std_msgs::String::ConstPtr &msg){
     
@@ -1233,7 +1183,7 @@ void ros_connect::ardu_callback(const std_msgs::String::ConstPtr &msg){
 	deserializeJson(doc, msg->data);  //Json deserialize
     JsonObject obj = doc.as<JsonObject>();
 
-    button = doc["button"];
+    button = doc["button"];     
     left_count = doc["left_count"];
     right_count = doc["right_count"];
     right_xValue = doc["right_xValue"];
@@ -1243,7 +1193,7 @@ void ros_connect::ardu_callback(const std_msgs::String::ConstPtr &msg){
     left_yValue = doc["left_yValue"];
     left_joy_swValue = doc["left_joy_swValue"];
     
-    printf("%d ", button);
+    printf("%d ", button);          //multiple input at same time is available.
     printf("%d ", left_count);
     printf("%d ", right_count);
     printf("%d ", right_xValue);
@@ -1252,11 +1202,10 @@ void ros_connect::ardu_callback(const std_msgs::String::ConstPtr &msg){
     printf("%d ", left_xValue);
     printf("%d ", left_yValue);
     printf("%d \n", left_joy_swValue);
+
+
+//    m_Q->findChild<QObject *>("")->setProperty("",button);
+
     m_Q->findChild<QObject *>("numpadCount")->setProperty("left_count",left_count);
     m_Q->findChild<QObject *>("numpadCount")->setProperty("right_count",right_count);
-    // setLeftCount(left_count);  
-    
-    //if(rotary) transfer_left_rotary();
-    //m_Q->findChild<QObject *>("testing")->setProperty("text", button);  //QML objectname : "four_digit", property is text  access
 }  
- //void ros_connect::rotary_msg(const std_msgs::Int32::ConstPtr &msg){
